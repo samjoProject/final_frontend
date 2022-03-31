@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import CreateBoard from "./components/board/CreateBoard";
 import ListBoard from "./components/board/ListBoard";
+import ReadBoard from "./components/board/ReadBoard";
 import Calendar from "./components/calendar/Calendar";
 import { Layout, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
@@ -66,7 +67,8 @@ function Views() {
                 <Routes>
                   <Route path="/" element={<Calendar />}></Route>
                   <Route path="/board" element={<ListBoard />}></Route>
-                  <Route path="/create-board" element={<CreateBoard />}></Route>
+                  <Route path = "/create-board/:id" element = {<CreateBoard />}></Route>
+                  <Route path = "/read-board/:id" element = {<ReadBoard />}></Route>
                   <Route path="/mainpage" element={<Calendar />}></Route>
                 </Routes>
               </Content>
