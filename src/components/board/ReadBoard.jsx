@@ -86,6 +86,10 @@ function ReadBoard() {
 
                     <div className="row">
 
+                        <label> Category </label> : {data.category}
+                    </div>
+                    <div className="row">
+
                         <label> Title </label> : {data.title}
                     </div>
 
