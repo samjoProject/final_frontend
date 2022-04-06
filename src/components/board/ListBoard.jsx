@@ -47,7 +47,7 @@ function ListBoard() {
             <thead>
               <tr>
                 <th>글 번호</th>
-                {/* <th>카테고리 </th> */}
+                <th>카테고리 </th>
                 <th>타이틀 </th>
                 <th>작성자 </th>
                 <th>작성일 </th>
@@ -62,9 +62,9 @@ function ListBoard() {
                   board =>
                     <tr key={board.id}>
                       <td> {board.id} </td>
+                      <td> {board.category} </td>
                       <td> <a onClick={() => readBoard(board.id)}>{board.title} </a></td>
                       <td> {board.userId} </td>
-                      {/* <td> {board.category} </td> */}
                       <td> {board.regDate} </td>
                       {/* <td> {board.updatedTime} </td> */}
                       {/* <td> {board.likes} </td> */}

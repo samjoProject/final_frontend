@@ -1,6 +1,7 @@
 import { getByTitle } from '@testing-library/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import Select from 'react-select';
 import { useParams } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
 
@@ -8,12 +9,16 @@ function CreateBoard() {
 
 
     const { id } = useParams();
+    const [category, setCategory] = useState('')
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [userId, setUserId] = useState('');
     const [imgBase64, setImgBase64] = useState([]); // 파일 base64
     const [imgFile, setImgFile] = useState(null);	//파일	
 
+    const changeCategoryHandler = (e) => {
+        setCategory(e.currentTarget.value);
+    }
 
     const changeTitleHandler = (e) => {
         setTitle(e.currentTarget.value);
@@ -47,6 +52,7 @@ function CreateBoard() {
     const onClickPost = (e) => {
         e.preventDefault();
         let board = {
+            category: category,
             title: title,
             content: content,
             userId: userId
@@ -140,6 +146,14 @@ function CreateBoard() {
             <h2>CreateBoard</h2>
 
             <form>
+                <label> Category </label>
+                <select placeholder="category" name="category" className="form-control"
+                    value={category} onChange={changeCategoryHandler}>
+                    <option value="강의자료">강의자료</option>
+                    <option value="공지사항">공지사항</option>
+                </select>
+                {/* <Select placeholder="카테고리 선택" 
+                options={}/> */}
                 <div className="card-body">
                     <div className="form-group">
                         <label> Title </label>
