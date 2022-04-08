@@ -29,10 +29,10 @@ const TodoModal = (props) => {
       </Modal.Header>
       <Modal.Body>
         <h4>일정 추가</h4>
-        <p>
+        <span>
           <AddTodoForm />
           <TodoList />
-        </p>
+        </span>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>

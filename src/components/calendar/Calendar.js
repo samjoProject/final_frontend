@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction"; // for selectable
@@ -8,10 +8,33 @@ import styled from "styled-components";
 import TodoModal from "./modal/TodoModal";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 
 const Calendar = () => {
+
+  const [todoList, setTodoList] = useState([]);
+  useEffect( () => {
+    axios({
+      url: "http://localhost:8080/api/calendar",
+      method: "get",
+
+    }).then ((res)=> {
+      setTodoList(res.data);
+    }).catch((error)=> {
+      console.log(error)
+    })
+  },[]);
+
+  const schedule_list = todoList.map((val) => {
+    return {
+      title : val.title,
+      date : val.date
+    };
+  })
+
   const [modalOpen, setModalOpen] = useState(false);
-  let todos_list = useSelector(state => state.todos.list)
+  let todos_list = useSelector((state) => state.todos.list);
   //날짜를 문자열로
   let str = formatDate("2022-03-16", {
     month: "long",
@@ -39,13 +62,12 @@ const Calendar = () => {
           // dateClick={this.handleDateClick}
           weekends={true}
           // navLinks={true} // 달력 날짜 클릭할 수 있게 해줌, 기본값 falase라 설정해줘야함. 날짜 클릭시 그날로 이동
-          // navLinkDayClick={}
-          selectable={true} // 달력에서 드래그로 날짜 선택
-          // editable={true} // 달력 내에서 일정 옮기고 수정
           // droppable={true}
-          locale="ko" //  한국어 설정
-          dayMaxEvents={true} // 하나의 날짜에 이벤트 갯수 제한 오버하면 more로 표시
+          selectable={true} // 달력에서 드래그로 날짜 선택
+          selectMirror={true}
+          // editable={true} // 달력 내에서 일정 옮기고 수정
 
+          locale="ko" //  한국어 설정
           // dateClick={handleDateClick} // 요일클릭 이벤트
           // dateClick={function () {
           //   alert("요일 클릭");
@@ -54,24 +76,13 @@ const Calendar = () => {
           // eventClick={
           //   (arg) => updateModal(arg)
           // } // 일정 클릭 이벤트
-          events={todos_list}
-          // eventClick={}
-          // events={[
+          
+            events={schedule_list}        
+          //   events={[
           //   { title: "event1", date: "2022-03-12" },
           //   { title: "event2", date: "2022-03-14" },
-          // ]}
-          // select={function (arg) {
-          // const title = prompt("Event Title:");
-          // if (title) {
-          //   Calendar.addEvent({
-          //     title: title,
-          //     start: arg.start,
-          //     end: arg.end,
-          //     allDay: arg.allDay,
-          //   });
-          //   }
-          //   // Calendar.unselect()
-          // }}
+          // ]}        
+          
         />
 
         <Button
