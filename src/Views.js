@@ -11,7 +11,9 @@ import S3Upload from "./components/board/S3Upload";
 import "./App.css";
 
 
+
 const { TabPane } = Tabs;
+
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
