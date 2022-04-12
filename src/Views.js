@@ -11,6 +11,7 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 function Views() {
+  
   return (
     <BrowserRouter>
       <div className="MainPage">
@@ -74,7 +75,7 @@ function Views() {
           </Layout>
         </Layout>
       </div>
-    </BrowserRouter>
+    </BrowserRouter> 
   );
 }
 
