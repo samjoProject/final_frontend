@@ -66,14 +66,14 @@ function Views() {
                   minHeight: 280,
                 }}
               >
-                <ul> 
+                {/* <ul> 
                   <li> 
                     <Link to="/create-board/:id">홈</Link>
                      </li> 
                      {/* <li> 
                        <Link to="/about">소개</Link> 
                        </li>  */}
-                       </ul>
+                       {/* </ul>  */}
 
 
                 <Routes>
