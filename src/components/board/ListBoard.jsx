@@ -6,74 +6,121 @@ import BoardService from '../../service/BoardService';
 
 
 
-class ListBoard extends Component {
-  constructor(props) {
-    super(props)
-    // # 1. 
-    this.state = {
-      boards: []
-    }
-    this.createBoard = this.createBoard.bind(this); // createBoard함수 바인딩
-
-  }
-  // # 2. 
-  componentDidMount() {
-    BoardService.getBoards().then((res) => {
-      this.setState({ boards: res.data });
-    });
-  }
-
-  // createBoard() {
-  //   this.props.history.push('/create-board/'); // 글작성으로 이동 createBoard 함수정의
-  // }
-  createBoard = () => {
-    console.log('this is:', this);
-    window.location.href = "/create-board/"
-  }
+function ListBoard() {
+  
+      // const pageNum = 1;
+      // const {paging, setPaging} = {};
+      const [boards, setBoards] = useState([]);
+    
+    // this.createBoard = this.createBoard.bind(this); // createBoard함수 바인딩
 
   
+  // 글목록 
+  useEffect(() => {
+    BoardService.getBoards().then((res) => {
+      console.log('1',boards)
+      // pageNum(res.data.pagingData.currentPageNum),
+      // setPaging(res.data.pagingData),
+      setBoards(res.data);
 
-  // # 3.
-  render() {
+  })
+},[])
+
+  // 글쓰기 버튼 클릭 -> 클쓰기
+  // const createBoard = () => {
+  //   window.location.href = "/create-board/"
+  // }
+  const createBoard = () => {
+    window.location.href = "/create-board/create"
+  }
+
+  // 글 선택 -> 상세보기 
+  const readBoard = (id) => {
+    console.log('this is:', id);
+    window.location.href = `/read-board/${id}`;
+  }
+
+  // const listBoard = (pageNum) => {
+  //   console.log('listboard pageNum:', pageNum);
+  //   BoardService.getBoards(pageNum).then((res) => {
+  //     console.log(res.data);
+  //       pageNum(res.data.pagingData.currentPageNum),
+  //       setPaging(res.data.pagingData),
+  //       setBoards(res.data);
+  //   })
+  // }
+
+  // const viewPage = () => {
+  //   const pageNums = [];
+
+  //   for (let i = paging.startNum; i <= paging.endNum; i++ ) {
+  //     pageNums.push(i);
+  //   }
+
+  //   return (pageNums.map((page) => {
+  //     <li className="page-item" key={page.toString()} >
+  //           <a className="page-link" onClick = {() => listBoard(page)}>{page}</a>
+  //     </li>
+  //   }))
+  // }
+
+  // const isPagingPrev = () => {
+  //   if ( paging.prev ) {
+  //     return (
+  //       <li className="page-item">
+  //           <a className="page-link" onClick = {() => listBoard( (paging.currentPageNum - 1) )} tabindex="-1">Previous</a>
+  //       </li>
+  //     )
+  //   }
+  // }
+
+  
     return (
       <div>
         <h2 className="text-center">Boards List</h2>
         
+
         <div className="row">
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>글 번호</th>
+                <th>카테고리 </th>
                 <th>타이틀 </th>
                 <th>작성자 </th>
                 <th>작성일 </th>
 
-                <th>조회수</th>
+                {/* <th>조회수</th> */}
               </tr>
             </thead>
             <tbody>
               {
-                this.state.boards.map(
+                boards.map(
+                  
                   board =>
                     <tr key={board.id}>
                       <td> {board.id} </td>
-                      <td> {board.title} </td>
-                      <td> {board.content} </td>
-                      <td> {board.createdDate} </td>
+                      <td> {board.category} </td>
+                      <td> <a onClick={() => readBoard(board.id)}>{board.title} </a></td>
+                      <td> {board.userId} </td>
+                      <td> {board.regDate} </td>
+                      {/* <td> {board.updatedTime} </td> */}
+                      {/* <td> {board.likes} </td> */}
                       {/* <td> {board.counts} </td> */}
+                      
                     </tr>
                 )
               }
             </tbody>
           </table>
-          <div className="row"> 
-          <button className="btn btn-primary" onClick={this.createBoard}> 글쓰기 </button> 
-        </div>
+          <div className="row">
+            <button className="btn btn-primary" onClick={createBoard}> 글쓰기 </button>
+          </div>
         </div>
       </div>
     );
   }
-}
+
 
 
 
