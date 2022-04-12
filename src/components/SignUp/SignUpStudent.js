@@ -1,7 +1,6 @@
 import axios from "axios";
 import qs from "qs";
-import './/css/SignUp.css'
-import { useState } from "react";
+import './/css/SignUp.css';
 
 function SignUpStudent() {
     return (
