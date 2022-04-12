@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select';
 import { useParams } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
+import S3Upload from './S3Upload';
 
 function CreateBoard() {
 
@@ -55,7 +56,8 @@ function CreateBoard() {
             category: category,
             title: title,
             content: content,
-            userId: userId
+            userId: userId,
+            // fileId: fileId
         };
 
         console.log("board => " + JSON.stringify(board));
@@ -111,34 +113,34 @@ function CreateBoard() {
     }, []);
 
     // 파일 선택 버튼 
-    const changeFileHandler = (event) => {
-        console.log(event.target.files)
-        setImgFile(event.target.files);
-        //fd.append("file", event.target.files)
-        setImgBase64([]);
-        for (var i = 0; i < event.target.files.length; i++) {
-            if (event.target.files[i]) {
-                let reader = new FileReader();
-                reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
-                // 파일 상태 업데이트
-                reader.onloadend = () => {
-                    // 2. 읽기가 완료되면 아래코드가 실행됩니다.
-                    const base64 = reader.result;
-                    console.log(base64)
-                    if (base64) {
-                        //  images.push(base64.toString())
-                        var base64Sub = base64.toString()
+    // const changeFileHandler = (event) => {
+    //     console.log(event.target.files)
+    //     setImgFile(event.target.files);
+    //     //fd.append("file", event.target.files)
+    //     setImgBase64([]);
+    //     for (var i = 0; i < event.target.files.length; i++) {
+    //         if (event.target.files[i]) {
+    //             let reader = new FileReader();
+    //             reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
+    //             // 파일 상태 업데이트
+    //             reader.onloadend = () => {
+    //                 // 2. 읽기가 완료되면 아래코드가 실행됩니다.
+    //                 const base64 = reader.result;
+    //                 console.log(base64)
+    //                 if (base64) {
+    //                     //  images.push(base64.toString())
+    //                     var base64Sub = base64.toString()
 
-                        setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
-                        //  setImgBase64(newObj);
-                        // 파일 base64 상태 업데이트
-                        //  console.log(images)
-                    }
-                }
-            }
-        }
+    //                     setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
+    //                     //  setImgBase64(newObj);
+    //                     // 파일 base64 상태 업데이트
+    //                     //  console.log(images)
+    //                 }
+    //             }
+    //         }
+    //     }
 
-    }
+    
 
 
     return (
@@ -170,10 +172,10 @@ function CreateBoard() {
                         <input placeholder="userId" name="userId" className="form-control"
                             value={userId} onChange={changeUserIdHandler} />
                     </div>
-                    <input type="file" id="file" onChange={changeFileHandler} multiple="multiple" />
+                    {/* <input type="file" id="file" onChange={changeFileHandler} multiple="multiple" /> */}
                 </div>
             </form>
-
+            <S3Upload />    
             <button className="btn btn-success" onClick={onClickPost}>Save</button>
             {/* <button className="btn btn-success" onClick={getTitle}>Save</button> */}
             <button className="btn btn-danger" onClick={onClickCancel}>Cancel</button>

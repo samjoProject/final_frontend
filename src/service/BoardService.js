@@ -11,10 +11,11 @@ class BoardService {
 
   createBoard(board) {
     console.log('-------post-------', board);
-    return axios.post("http://localhost:8080/api/post", board).then(res => {
-      console.log(res.data)
-      window.location.href = "/board";            
-  });
+    return axios.post("http://localhost:8080/api/post", board)
+  //   .then(res => {
+  //     console.log(res.data)
+  //     window.location.href = "/board";            
+  // });
     
   }
 
