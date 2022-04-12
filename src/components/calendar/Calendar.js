@@ -50,7 +50,6 @@ const Calendar = ({ id }) => {
 
   // console.log("schedule_list", schedule_list[0]);
  
-
   const handleDeleteClick = (e) => {
     // console.log(schedule_list.map((id) => ( id={id} )))
     const deleteYn = window.confirm("일정을 삭제하시겠습니까?");
