@@ -20,7 +20,7 @@ function Views() {
 
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
               <Menu.Item key="1">
-                <Link to="/">홈</Link>
+                <Link to="/calendar">홈</Link>
               </Menu.Item>
 
               <Menu.Item key="2">
@@ -64,10 +64,10 @@ function Views() {
                 }}
               >
                 <Routes>
-                  <Route path="/" element={<Calendar />}></Route>
+                  {/* <Route path="/" element={<Calendar />}></Route> */}
                   <Route path="/board" element={<ListBoard />}></Route>
                   <Route path="/create-board" element={<CreateBoard />}></Route>
-                  <Route path="/mainpage" element={<Calendar />}></Route>
+                  <Route path="/calendar" element={<Calendar />}></Route>
                 </Routes>
               </Content>
             </Layout>

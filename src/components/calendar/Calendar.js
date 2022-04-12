@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
-import FullCalendar from "@fullcalendar/react";
+import React, { useState, useEffect, useCallback } from "react";
+import FullCalendar, {
+  preventDefault,
+  WindowScrollController,
+} from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction"; // for selectable
 import { formatDate } from "@fullcalendar/core";
@@ -9,32 +12,57 @@ import TodoModal from "./modal/TodoModal";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { deleteTodoAsync } from "../../redux/todoSlice";
 
+const Calendar = ({ id }) => {
+  
+  const [modalOpen, setModalOpen] = useState(false);
 
-const Calendar = () => {
-
+  const dispatch = useDispatch();
+ 
   const [todoList, setTodoList] = useState([]);
-  useEffect( () => {
+
+  useEffect(() => {
     axios({
       url: "http://localhost:8080/api/calendar",
       method: "get",
-
-    }).then ((res)=> {
-      setTodoList(res.data);
-    }).catch((error)=> {
-      console.log(error)
     })
-  },[]);
+      .then((res) => {
+        setTodoList(res.data);
+        console.log("1. useeffect: ", res.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
+
+  // 일정 타이틀 캘린더 해당 일자에 띄우는 함수
   const schedule_list = todoList.map((val) => {
+    
+    // console.log("schedule_list:", val.id);
     return {
-      title : val.title,
-      date : val.date
+      id: val.id,
+      title: val.title,
+      date: val.date,
     };
-  })
+  });
 
-  const [modalOpen, setModalOpen] = useState(false);
-  let todos_list = useSelector((state) => state.todos.list);
+  // console.log("schedule_list", schedule_list[0]);
+ 
+
+  const handleDeleteClick = (e) => {
+    // console.log(schedule_list.map((id) => ( id={id} )))
+    const deleteYn = window.confirm("일정을 삭제하시겠습니까?");
+    if (deleteYn) {
+      dispatch(deleteTodoAsync(
+        e.event.id
+        ));
+      // console.log(e.event.id);
+    }
+    window.location="/calendar"
+  };
+
   //날짜를 문자열로
   let str = formatDate("2022-03-16", {
     month: "long",
@@ -45,10 +73,7 @@ const Calendar = () => {
     locale: "ko",
   });
 
-  //   const [modal, setModal] = useState(false);
-
   return (
-    // <div className="FullCalendar">
     <div>
       <Container>
         <FullCalendar
@@ -72,17 +97,17 @@ const Calendar = () => {
           // dateClick={function () {
           //   alert("요일 클릭");
           // }} // 요일클릭 이벤트
-          // eventClick={handleEventClick} // 일정 클릭 이벤트
           // eventClick={
-          //   (arg) => updateModal(arg)
+          //  console.log("이벤트 클릭")
           // } // 일정 클릭 이벤트
-          
-            events={schedule_list}        
+
+          events={schedule_list}
+          // eventClick={() => handleDeleteClick(schedule_list)} // 일정 클릭 이벤트
+          eventClick={handleDeleteClick} // 일정 클릭 이벤트
           //   events={[
           //   { title: "event1", date: "2022-03-12" },
           //   { title: "event2", date: "2022-03-14" },
-          // ]}        
-          
+          // ]}
         />
 
         <Button
@@ -107,15 +132,33 @@ const Container = styled.div`
     cursor: pointer;
   }
 
-  .fc-col-header-cell {
-    background-color: #757984;
-    color: #fff;
-    &.fc-day-sat {
-      background-color: #2f74b5;
-    }
-    &.fc-day-sun {
-      background-color: #ca5973;
-    }
+  /*요일*/
+  .fc-col-header-cell-cushion {
+    color: #000;
+  }
+  .fc-col-header-cell-cushion:hover {
+    text-decoration: none;
+    color: #000;
+  }
+  /*일자*/
+  .fc-daygrid-day-number {
+    color: #000;
+    font-size: 1em;
+  }
+
+  /*종일제목*/
+  .fc-event-title.fc-sticky {
+  }
+  /*more버튼*/
+  .fc-daygrid-more-link.fc-more-link {
+    color: #000;
+  }
+
+  .fc-button-active {
+    border-color: #ffc107 !important;
+    background-color: #ffc107 !important;
+    color: #000 !important;
+    font-weight: bold !important;
   }
 `;
 

@@ -1,6 +1,7 @@
+import { preventDefault } from "@fullcalendar/react";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodoAsync, deleteTodoAsync } from "../../../redux/todoSlice";
+import { addTodoAsync } from "../../../redux/todoSlice";
 
 const AddTodoForm = () => {
   let dateInfo = React.useRef();
@@ -14,7 +15,7 @@ const AddTodoForm = () => {
       dispatch(
         addTodoAsync({
           title: value,
-          date: document.getElementById("start").value
+          date: document.getElementById("start").value,
         })
       );
     } // console.log('user entered: ' + value);
@@ -32,12 +33,16 @@ const AddTodoForm = () => {
         value={value}
         onChange={(event) => setValue(event.target.value)}
       ></input>
-      <button type="submit" className="btn btn-primary mb-2">
+      <button
+        type="submit"
+        className="btn btn-primary mb-2"
+        onClick={(e) => {
+          window.location = "/calendar";
+        }}
+      >
         + 일정 추가
       </button>
-      </form>
-      
-    
+    </form>
   );
 };
 
