@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import FullCalendar, {
-  preventDefault,
   WindowScrollController,
 } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
