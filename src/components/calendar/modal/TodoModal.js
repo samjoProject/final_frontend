@@ -31,7 +31,7 @@ const TodoModal = (props) => {
         <h4>일정 추가</h4>
         <span>
           <AddTodoForm />
-          <TodoList />
+          {/* <TodoList /> */}
         </span>
       </Modal.Body>
       <Modal.Footer>
