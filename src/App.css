@@ -14,10 +14,23 @@
   background-color: #61dafb;
 } 
 
+.logo { 
+  /* width: 180px; */
+  height: 50px;
+  background-color: white;
+  object-fit: cover;
+  margin-top: -5px;
+  /* left:-300px; */
+  
+  /* background-size: cover; */
 
-/* .logo {
-  background-image: url("../../images/logo.png");
-} */
+}
+
+  .header {
+    background-color: white;
+    margin: 0px;
+    padding: 10px
+}
 /* .App {
   text-align: center;
 }
