@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import S3Upload from "./components/board/S3Upload";
 import "./App.css";
 
+
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -67,20 +68,23 @@ function Views() {
                   minHeight: 280,
                 }}
               >
-
+                
                 <Routes>
                 <Route path="/" element={<Calendar />}></Route>
                 <Route path="/calendar" element={<Calendar />}></Route>
                   <Route path="/board" element={<ListBoard />}></Route>
                   <Route path = "/create-board/:id" element = {<CreateBoard />}></Route>
                   <Route path = "/read-board/:id" element = {<ReadBoard />}></Route>
+
+
                 </Routes>
               </Content>
             </Layout>
           </Layout>
         </Layout>
       </div>
-    </BrowserRouter> 
+
+    </BrowserRouter>
   );
 }
 
