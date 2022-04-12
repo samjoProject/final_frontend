@@ -2,10 +2,12 @@ import React from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import CreateBoard from "./components/board/CreateBoard";
 import ListBoard from "./components/board/ListBoard";
+import ReadBoard from "./components/board/ReadBoard";
 import Calendar from "./components/calendar/Calendar";
 import { Layout, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "bootstrap/dist/css/bootstrap.min.css";
+import S3Upload from "./components/board/S3Upload";
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -13,6 +15,7 @@ const { Header, Content, Sider } = Layout;
 function Views() {
   
   return (
+    
     <BrowserRouter>
       <div className="MainPage">
         <Layout>
@@ -64,18 +67,31 @@ function Views() {
                   minHeight: 280,
                 }}
               >
+                {/* <ul> 
+                  <li> 
+                    <Link to="/create-board/:id">홈</Link>
+                     </li> 
+                     {/* <li> 
+                       <Link to="/about">소개</Link> 
+                       </li>  */}
+                       {/* </ul>  */}
+
+
                 <Routes>
                 <Route path="/" element={<Calendar />}></Route>
                   <Route path="/board" element={<ListBoard />}></Route>
                   <Route path = "/create-board/:id" element = {<CreateBoard />}></Route>
                   <Route path = "/read-board/:id" element = {<ReadBoard />}></Route>
+
+
                 </Routes>
               </Content>
             </Layout>
           </Layout>
         </Layout>
       </div>
-    </BrowserRouter> 
+
+    </BrowserRouter>
   );
 }
 
