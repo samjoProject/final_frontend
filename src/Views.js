@@ -8,6 +8,8 @@ import { Layout, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import S3Upload from "./components/board/S3Upload";
+import "./App.css";
+
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -18,9 +20,12 @@ function Views() {
     
     <BrowserRouter>
       <div className="MainPage">
-        <Layout>
+        <Layout >
           <Header className="header">
-            <div className="logo" />
+            <img className="logo" src = "../../images/logo.png"/>
+              {/* <img src = "../../images/logo.png"/> */}
+              {/* <h1>shareTogether</h1> */}
+
 
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
               <Menu.Item key="1">
@@ -49,12 +54,8 @@ function Views() {
                 defaultOpenKeys={["sub1"]}
                 style={{ height: "100%", borderRight: 0 }}
               >
-                <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                  <Menu.Item key="1">option1</Menu.Item>
-                  <Menu.Item key="2">option2</Menu.Item>
-                  <Menu.Item key="3">option3</Menu.Item>
-                  <Menu.Item key="4">option4</Menu.Item>
-                </SubMenu>
+                {/* <InfoContainer/> */}
+                <h1> 컨테이너 들어갈 자리 </h1>
               </Menu>
             </Sider>
 
@@ -67,18 +68,10 @@ function Views() {
                   minHeight: 280,
                 }}
               >
-                {/* <ul> 
-                  <li> 
-                    <Link to="/create-board/:id">홈</Link>
-                     </li> 
-                     {/* <li> 
-                       <Link to="/about">소개</Link> 
-                       </li>  */}
-                       {/* </ul>  */}
-
-
+                
                 <Routes>
                 <Route path="/" element={<Calendar />}></Route>
+                <Route path="/calendar" element={<Calendar />}></Route>
                   <Route path="/board" element={<ListBoard />}></Route>
                   <Route path = "/create-board/:id" element = {<CreateBoard />}></Route>
                   <Route path = "/read-board/:id" element = {<ReadBoard />}></Route>
