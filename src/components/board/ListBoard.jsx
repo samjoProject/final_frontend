@@ -8,7 +8,8 @@ import BoardService from '../../service/BoardService';
 
 function ListBoard() {
   
-   
+      // const pageNum = 1;
+      // const {paging, setPaging} = {};
       const [boards, setBoards] = useState([]);
     
     // this.createBoard = this.createBoard.bind(this); // createBoard함수 바인딩
@@ -18,7 +19,10 @@ function ListBoard() {
   useEffect(() => {
     BoardService.getBoards().then((res) => {
       console.log('1',boards)
+      // pageNum(res.data.pagingData.currentPageNum),
+      // setPaging(res.data.pagingData),
       setBoards(res.data);
+
   })
 },[])
 
@@ -35,6 +39,40 @@ function ListBoard() {
     console.log('this is:', id);
     window.location.href = `/read-board/${id}`;
   }
+
+  // const listBoard = (pageNum) => {
+  //   console.log('listboard pageNum:', pageNum);
+  //   BoardService.getBoards(pageNum).then((res) => {
+  //     console.log(res.data);
+  //       pageNum(res.data.pagingData.currentPageNum),
+  //       setPaging(res.data.pagingData),
+  //       setBoards(res.data);
+  //   })
+  // }
+
+  // const viewPage = () => {
+  //   const pageNums = [];
+
+  //   for (let i = paging.startNum; i <= paging.endNum; i++ ) {
+  //     pageNums.push(i);
+  //   }
+
+  //   return (pageNums.map((page) => {
+  //     <li className="page-item" key={page.toString()} >
+  //           <a className="page-link" onClick = {() => listBoard(page)}>{page}</a>
+  //     </li>
+  //   }))
+  // }
+
+  // const isPagingPrev = () => {
+  //   if ( paging.prev ) {
+  //     return (
+  //       <li className="page-item">
+  //           <a className="page-link" onClick = {() => listBoard( (paging.currentPageNum - 1) )} tabindex="-1">Previous</a>
+  //       </li>
+  //     )
+  //   }
+  // }
 
   
     return (

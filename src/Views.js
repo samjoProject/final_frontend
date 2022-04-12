@@ -7,12 +7,14 @@ import Calendar from "./components/calendar/Calendar";
 import { Layout, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "bootstrap/dist/css/bootstrap.min.css";
+import S3Upload from "./components/board/S3Upload";
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 function Views() {
   return (
+    
     <BrowserRouter>
       <div className="MainPage">
         <Layout>
@@ -64,6 +66,16 @@ function Views() {
                   minHeight: 280,
                 }}
               >
+                <ul> 
+                  <li> 
+                    <Link to="/create-board/:id">홈</Link>
+                     </li> 
+                     {/* <li> 
+                       <Link to="/about">소개</Link> 
+                       </li>  */}
+                       </ul>
+
+
                 <Routes>
                   <Route path="/" element={<Calendar />}></Route>
                   <Route path="/board" element={<ListBoard />}></Route>
@@ -77,6 +89,7 @@ function Views() {
         </Layout>
       </div>
     </BrowserRouter>
+    
   );
 }
 
