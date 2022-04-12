@@ -65,10 +65,12 @@ function Views() {
                 }}
               >
                 <Routes>
-                  {/* <Route path="/" element={<Calendar />}></Route> */}
+
+                <Route path="/" element={<Calendar />}></Route>
                   <Route path="/board" element={<ListBoard />}></Route>
-                  <Route path="/create-board" element={<CreateBoard />}></Route>
-                  <Route path="/calendar" element={<Calendar />}></Route>
+                  <Route path = "/create-board/:id" element = {<CreateBoard />}></Route>
+                  <Route path = "/read-board/:id" element = {<ReadBoard />}></Route>
+
                 </Routes>
               </Content>
             </Layout>
