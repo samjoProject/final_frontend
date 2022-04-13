@@ -1,3 +1,4 @@
+//css 적용 완
 import axios from "axios";
 import qs from "qs";
 import './/css/SignUp.css';
@@ -27,57 +28,71 @@ function SignUpTeacher() {
                 console.log(error);
             })
         }}>
-            <table className="signUpTable">
-                <thead className="headSize">
-                    <tr className="headSize">
-                        <th className="headSize" colSpan="2">인적 사항을 입력해주세요</th>
-                    </tr>
-                </thead>
-                <tbody className="bodySize">
-                    <tr>
+            <div className="signUpForm">
+                <div className="signUpTableContent">
+                    <label id="userEmail" className="pI">ID(email)</label>
+                    <div>
+                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("email")} readOnly />
+                    </div>
+                </div>
 
-                        <td className="pI">ID(email)</td>
-                        <td className="setInputData"><input type="text" className="inputDataAlready" value={localStorage.getItem("email")} readOnly /></td>
+                <div className="signUpTableContent">
+                    <label id="userName" className="pI">이름</label>
+                    <div>
+                        <input type="text" className="inputData" name="userName" />
+                    </div>
+                </div>
 
-                    </tr>
-                    <tr>
-                        <td className="pI">이름</td>
-                        <td className="setInputData"><input type="userName" className="inputData" name="userName" /></td>
-                    </tr>
-                    <tr>
-                        <td className="pI">태어난 년도</td>
-                        <td className="setInputData">
-                            <select name="birthyear" className="selectYear" defaultValue="none">
-                                <option value="none" disabled hidden>=====선 택 =====</option>
-                                {year()}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
+                <div className="signUpTableContent">
+                    <label id="birthyear" className="pI">태어난 년도</label>
+                    <div>
+                        <select name="birthyear" className="selectYear" defaultValue="none">
+                            <option value="none" disabled hidden>=====선 택 =====</option>
+                            {year()}
+                        </select>
+                    </div>
+                </div>
 
-                        생일 : {localStorage.getItem("birthday")} <br />
-                    </tr>
-                    <tr>
+                <div className="signUpTableContent">
+                    <label id="birthday" className="pI">생일</label>
+                    <div>
+                        <input type="text" className="inputDataAlready" value={localStorage.getItem("birthday")} readOnly />
+                    </div>
+                </div>
 
-                        핸드폰 번호 : <input type="userPhone" name="userPhone" /><br />
-                    </tr>
-                    <tr>
+                <div className="signUpTableContent">
+                    <label id="userPhone" className="pI">핸드폰번호</label>
+                    <div>
+                        <input type="text" className="inputData" name="userPhone" />
+                    </div>
+                </div>
 
-                        계좌번호 : <input type="accountNum" name="accountNum" /><br />
-                    </tr>
-                </tbody>
-                <input type="submit" value="회원가입" />
-            </table>
+                <div className="signUpTableContent">
+                    <label id="CN" className="pI">교육과정</label>
+                    <div>
+                      <input type="text" className="inputDataAlready" value={localStorage.getItem("CN")} readOnly />
+                    </div>
+                </div>
+
+                <div className="signUpTableContent">
+                    <label id="accountNum" className="pI">계좌번호</label>
+                    <div>
+                        <input type="text" className="inputData" name="accountNum" />
+                    </div>
+                </div>
+            </div>
+            <input type="submit" className="signUpComplete" value="회원가입" />
+            
         </form>
     )
 }
 
-function year(){
+function year() {
     var array = [];
     let data = [];
-    for (let i =2000; i>1970; i--){
+    for (let i = 2000; i > 1970; i--) {
         data[i] = i;
-        array.push(<option key = {data[i]} value = {i}>{i}</option>);
+        array.push(<option key={data[i]} value={i}>{i}</option>);
     }
     return array;
 }

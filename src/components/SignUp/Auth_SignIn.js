@@ -1,4 +1,4 @@
-// 로그인 authO
+// 로그인 authO css 필요없음
 // 전달받은 파라미터를 통해 코드를 추출하고, 그 코드로 엑세스 토큰을 추출하고
 // 추출한 엑세스 토큰을 이용해 카카오 개인 정보에 접근해 데이터를 추출해옴
 // 그리고 이메일을 localStorage에 저장해놓음
@@ -52,6 +52,8 @@ const AuthSignIn = () => {
         window.location='http://localhost:3000/checksignuptype'
       }else if(res.data.code === 200){
         alert(res.data.msg);
+        localStorage.setItem("userPers", res.data.userPers);
+        localStorage.setItem("status", true);
         window.location='http://localhost:3000/mainpage'
       }
     }).catch((err) =>

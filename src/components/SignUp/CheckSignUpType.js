@@ -1,12 +1,16 @@
-//여기서 회원가입할 방법을 정하기?
+//회원가입 방법 정하기
+//css 완
+import './/css/SignUp.css';
 
-function CheckSignUpType(){
+function CheckSignUpType() {
     const kakao_auth_uri = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=2f24e2a9b9b8cf99534a84ef99af7f87&redirect_uri=http://localhost:3000/authsignup`
 
     return (
-        <div className="Check">
-            회원가입할 방식을 설정해주세요. <br />
-            <a href={kakao_auth_uri}> <img src = "img/kakao_login.png"></img></a>
+        <div className='TitleScreen'>
+            <div className='signUpTitle'>방식 선택</div>
+            <div className='OAuthLogo'><a href={kakao_auth_uri}> <img src="img/kakao_signup.png"></img></a></div>
+            <div className='OAuthLogo'>네이버</div>
+            <div className='OAuthLogo'>구글</div>
         </div>
     )
 }

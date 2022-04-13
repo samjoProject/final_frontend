@@ -1,50 +1,102 @@
+//css 적용 완
 import axios from "axios";
 import qs from "qs";
+import './/css/SignUp.css';
 
-function SignUpManager(){
-    return(
-        <form onSubmit={(e)=>{
+
+function SignUpManager() {
+    return (
+        <form onSubmit={(e) => {
             e.preventDefault();
             const inputData = qs.stringify({
                 userEmail: localStorage.getItem("email"),
                 userName: document.querySelector('[name=userName]').value,
                 userBirth: document.querySelector('[name=birthyear').value + localStorage.getItem("birthday"),
                 userAge: document.querySelector('[name = userAge]').value,
-                className: localStorage.getItem("CN"),
-                userPhone: document.querySelector('[name=userPhone]').value
+                userPhone: document.querySelector('[name=userPhone]').value,
+                className: localStorage.getItem("CN")
             })
-
             axios({
                 url: 'http://localhost:8080/signupmanager',
                 method: 'post',
                 data: inputData
-            }).then((res)=> {
+            }).then((res) => {
                 alert(res.data);
                 localStorage.clear();
                 window.location.href = '/home'
-            }).catch(function (error){
+            }).catch(function (error) {
                 console.log(error);
             })
         }}>
-            ID(email) : <input type="text" value={localStorage.getItem("email")} readOnly /><br />
-            이름 : <input type="text" name="userName" /><br />
-            태어난 년도 
-                <select name="birthyear" defaultValue="none">
-                    <option value="none" disabled hidden>===선 택 === </option>
-                    <option value="2000">2000</option>
-                    <option value="1999">1999</option>
-                    <option value="1998">1998</option>
-                    <option value="1997">1997</option>
-                    <option value="1996">1996</option>
-                </select>
-             <br />
-            생일 : <input type="text" value={localStorage.getItem("birthday")} readOnly /> <br />
-            나이 : <input type="text" name="userAge" /><br />
-            핸드폰 번호 : <input type="text" name="userPhone" /><br />
-            <input type="submit" value="회원가입" />
+            <div className="signUpForm">
+                <div className="signUpTableContent">
+                    <label id="userEmail" className="pI">ID(email)</label>
+                    <div>
+                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("email")} readOnly />
+                    </div>
+                </div>
 
+                <div className="signUpTableContent">
+                    <label id="userName" className="pI">이름</label>
+                    <div>
+                        <input type="text" className="inputData" name="userName" />
+                    </div>
+                </div>
+
+                <div className="signUpTableContent">
+                    <label id="birthyear" className="pI">태어난 년도</label>
+                    <div>
+                        <select name="birthyear" className="selectYear" defaultValue="none">
+                            <option value="none" disabled hidden>=====선 택 =====</option>
+                            {year()}
+                        </select>
+                    </div>
+                </div>
+
+                <div className="signUpTableContent">
+                    <label id="birthday" className="pI">생일</label>
+                    <div>
+                        <input type="text" className="inputDataAlready" value={localStorage.getItem("birthday")} readOnly />
+                    </div>
+                </div>
+
+                <div className="signUpTableContent">
+                    <label id="userAge" className="pI">나이</label>
+                    <div>
+                        <input type="text" className="inputData" name="userAge" />
+                    </div>
+                </div>
+
+                <div className="signUpTableContent">
+                    <label id="userPhone" className="pI">핸드폰번호</label>
+                    <div>
+                        <input type="text" className="inputData" name="userPhone" />
+                    </div>
+                </div>
+
+                <div className="signUpTableContent">
+                    <label id="CN" className="pI">교육과정</label>
+                    <div>
+                      <input type="text" className="inputDataAlready" value={localStorage.getItem("CN")} readOnly />
+                    </div>
+                </div>
+
+                
+            </div>
+            <input type="submit" className="signUpComplete" value="회원가입" />
+            
         </form>
     )
+}
+
+function year(){
+    var array = [];
+    let data = [];
+    for (let i =2000; i>1970; i--){
+        data[i] = i;
+        array.push(<option key = {data[i]} value = {i}>{i}</option>);
+    }
+    return array;
 }
 
 export default SignUpManager;

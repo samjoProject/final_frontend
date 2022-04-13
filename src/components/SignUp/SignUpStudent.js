@@ -1,3 +1,4 @@
+//css 적용 완
 import axios from "axios";
 import qs from "qs";
 import './/css/SignUp.css';
@@ -30,86 +31,88 @@ function SignUpStudent() {
                 console.log(error);
             })
         }}>
+            <div className="signUpForm">
+                <div className="signUpTableContent">
+                    <label id="userEmail" className="pI">ID(email)</label>
+                    <div>
+                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("email")} readOnly />
+                    </div>
+                </div>
 
-            <table className="signUpTable">
-                <thead className="headSize">
-                    <tr className="headSize">
-                        <th className="headSize" colSpan="2">인적 사항을 입력해주세요</th>
-                    </tr>
-                </thead>
+                <div className="signUpTableContent">
+                    <label id="userName" className="pI">이름</label>
+                    <div>
+                        <input type="text" className="inputData" name="userName" />
+                    </div>
+                </div>
 
-                <tbody className="bodySize">
-                    <tr>
-                        <td className="pI">ID(email)</td>
-                        <td className="setInputData"><input type="text" className="inputDataAlready" value={localStorage.getItem("email")} readOnly /></td>
-                    </tr>
+                <div className="signUpTableContent">
+                    <label id="birthyear" className="pI">태어난 년도</label>
+                    <div>
+                        <select name="birthyear" className="selectYear" defaultValue="none">
+                            <option value="none" disabled hidden>=====선 택 =====</option>
+                            {year()}
+                        </select>
+                    </div>
+                </div>
 
-                    <tr>
-                        <td className="pI">이름</td>
-                        <td className="setInputData"><input type="text" className="inputData" name="userName" /></td>
-                    </tr>
+                <div className="signUpTableContent">
+                    <label id="birthday" className="pI">생일</label>
+                    <div>
+                        <input type="text" className="inputDataAlready" value={localStorage.getItem("birthday")} readOnly />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td className="pI">태어난 년도</td>
-                        <td className="setInputData">
-                            <select name="birthyear" className="selectYear" defaultValue="none">
-                                <option value="none" disabled hidden>=====선 택 =====</option>
-                                {year()}
-                            </select>
-                        </td>
-                    </tr>
+                <div className="signUpTableContent">
+                    <label id="userAge" className="pI">나이</label>
+                    <div>
+                        <input type="text" className="inputData" name="userAge" />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td className="pI">생일</td>
-                        <td className="setInputData"><input type="text" className="inputDataAlready" value={localStorage.getItem("birthday")} readOnly /></td>
-                    </tr>
+                <div className="signUpTableContent">
+                    <label id="userPhone" className="pI">핸드폰번호</label>
+                    <div>
+                        <input type="text" className="inputData" name="userPhone" />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td className="pI">나이</td>
-                        <td className="setInputData"><input type="text" className="inputData" name="userAge" /></td>
-                    </tr>
+                <div className="signUpTableContent">
+                    <label id="userAddress" className="pI">주소</label>
+                    <div>
+                        <input type="text" className="inputData" name="userAddress" />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td className="pI">핸드폰 번호</td>
-                        <td className="setInputData"><input type="text" className="inputData"name="userPhone" /></td>
-                    </tr>
+                <div className="signUpTableContent">
+                    <label id="userUniv" className="pI">대학</label>
+                    <div>
+                        <input type="text" className="inputData" name="userUniv" />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td className="pI">주소</td>
-                        <td className="setInputData"><input type="text" className="inputData" name="userAddress" /></td>
-                    </tr>
+                <div className="signUpTableContent">
+                    <label id="userMajor" className="pI">전공</label>
+                    <div>
+                        <input type="text" className="inputData" name="userMajor" />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td className="pI">대학</td>
-                        <td className="setInputData"><input type="text" className="inputData" name="userUniv" /> </td>
-                    </tr>
+                <div className="signUpTableContent">
+                    <label id="CN" className="pI">교육과정</label>
+                    <div>
+                      <input type="text" className="inputDataAlready" value={localStorage.getItem("CN")} readOnly />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td className="pI">전공</td>
-                        <td className="setInputData"><input type="text" className="inputData" name="userMajor" /></td>
-                    </tr>
-
-                    <tr>
-                        <td className="pI">교육과정</td>
-                        <td className="setInputData"><input type="text" className="inputDataAlready" value={localStorage.getItem("CN")} readOnly /></td>
-                    </tr>
-
-                    <tr>
-                        <td className="pI">계좌번호</td>
-                        <td className="setInputData"><input type="text" className="inputData" name="accountNum" /></td>
-                    </tr>
-
-
-                </tbody>
-
-                <tfoot>
-                    <tr >
-                        <td colSpan = "2">
-                            <input type="submit" className="signUpComplete" value="회원가입" />
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                <div className="signUpTableContent">
+                    <label id="accountNum" className="pI">계좌번호</label>
+                    <div>
+                        <input type="text" className="inputData" name="accountNum" />
+                    </div>
+                </div>
+            </div>
+            <input type="submit" className="signUpComplete" value="회원가입" />
 
         </form>
     )

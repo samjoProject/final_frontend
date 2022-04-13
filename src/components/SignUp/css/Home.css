@@ -1,0 +1,41 @@
+.listTableHead {
+    text-align: center;
+}
+
+.listTable {
+    width: 500px;
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+}
+
+.listTable th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    background-color: #ccc;
+}
+
+.listTable td {
+    width: 350px;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.listTableHead{
+    text-align: center;
+}
+
+.listTableButton{
+    font-size: 200px;
+}
+
+.listTableScreen{
+    height: auto;
+    padding: 5% 15%;
+}
