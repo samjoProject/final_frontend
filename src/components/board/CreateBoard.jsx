@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select';
 import { useParams } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
-import S3Upload from './S3Upload';
+import '../../App.css';
+import AWS from 'aws-sdk';
+import { Row, Col, Button, Input, Alert } from 'reactstrap';
 
 function CreateBoard() {
 
@@ -14,8 +16,46 @@ function CreateBoard() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [userId, setUserId] = useState('');
-    const [imgBase64, setImgBase64] = useState([]); // 파일 base64
-    const [imgFile, setImgFile] = useState(null);	//파일	
+    const [fileId, setFileId] = useState('');
+
+    //파일선택
+    const [progress, setProgress] = useState(0);
+    const [selectedFile, setSelectedFile] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+
+    // const [imgBase64, setImgBase64] = useState([]); // 파일 base64
+    // const [imgFile, setImgFile] = useState(null);	//파일	
+
+    // S3버킷정보
+    const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY_ID;
+    const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+    const REGION = "us-east-1";
+    const S3_BUCKET = 'nanuri-files';
+
+
+    AWS.config.update({
+        accessKeyId: ACCESS_KEY,
+        secretAccessKey: SECRET_ACCESS_KEY
+    });
+
+    const myBucket = new AWS.S3({
+        accessKeyId: ACCESS_KEY,
+        secretAccessKey: SECRET_ACCESS_KEY,
+        params: { Bucket: S3_BUCKET },
+        region: REGION,
+    });
+
+    // 파일선택
+    const handleFileInput = (e) => {
+        const file = e.target.files[0];
+        const fileName = Math.random().toString(36).substring(2,11) +"_" + file.name;
+        console.log(fileName)
+
+        setProgress(0);
+        setSelectedFile(file);
+        setFileId(fileName);
+        
+    }
 
     const changeCategoryHandler = (e) => {
         setCategory(e.currentTarget.value);
@@ -33,21 +73,30 @@ function CreateBoard() {
         setUserId(e.currentTarget.value);
     }
 
-    // 저장버튼
-    // const onClickPost = (e) => {
-    //     e.preventDefault();
-    //     let board = {
-    //         title: title,
-    //         content: content,
-    //         userId: userId
-    //     };
-    //     console.log("board => " + JSON.stringify(board));
+    const uploadFile = (file) => {
+        console.log(file.name)
+        const params = {
 
-    //         BoardService.createBoard(board).then(res => {
-    //             window.location.href = "/board";  
-    //         });
+            Body: file,
+            Bucket: S3_BUCKET,
+            Key: "upload/" + fileId
+            
+            
+        };
+        myBucket.putObject(params)
+            .on('httpUploadProgress', (evt) => {
+                setProgress(Math.round((evt.loaded / evt.total) * 100))
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                    setSelectedFile(null);
+                }, 3000)
+            })
+            .send((err) => {
+                if (err) console.log(err)
+            })
+        }
 
-    //     }
 
     // 저장버튼 - 새로운버전
     const onClickPost = (e) => {
@@ -57,15 +106,19 @@ function CreateBoard() {
             title: title,
             content: content,
             userId: userId,
-            // fileId: fileId
+            fileId: fileId
         };
+
+        
+        
 
         console.log("board => " + JSON.stringify(board));
         if (id === 'create') {
-            if (window.confirm("글작성 완료"))
-                console.log('새글작성')
+            if (window.confirm("글작성을 완료하시겠습니까?"))
+            <uploadFile />
+            console.log('새글작성')
             BoardService.createBoard(board).then(res => {
-                window.location.href = "/board";
+                // window.location.href = "/board";
             });
         } else {
             console.log('업데이트')
@@ -105,6 +158,7 @@ function CreateBoard() {
                 let boards = ({
                     title: board.title,
                     content: board.content,
+                    file: board.fileId
                     // userId: board.userId
                 })
                 console.log("boards", boards)
@@ -140,7 +194,7 @@ function CreateBoard() {
     //         }
     //     }
 
-    
+
 
 
     return (
@@ -151,11 +205,11 @@ function CreateBoard() {
                 <label> Category </label>
                 <select placeholder="category" name="category" className="form-control"
                     value={category} onChange={changeCategoryHandler}>
+
+                    <option value="">카테고리를 선택해주세요.</option>
                     <option value="강의자료">강의자료</option>
                     <option value="공지사항">공지사항</option>
                 </select>
-                {/* <Select placeholder="카테고리 선택" 
-                options={}/> */}
                 <div className="card-body">
                     <div className="form-group">
                         <label> Title </label>
@@ -173,9 +227,14 @@ function CreateBoard() {
                             value={userId} onChange={changeUserIdHandler} />
                     </div>
                     {/* <input type="file" id="file" onChange={changeFileHandler} multiple="multiple" /> */}
+                    <Input color="primary" type="file" onChange={handleFileInput} />
+                    {selectedFile ? (
+                        <Button color="primary" onClick={() => uploadFile(selectedFile)}
+                        > 파일업로드 </Button>
+                    ) : null}
                 </div>
             </form>
-            <S3Upload />    
+            {/* <S3Upload />     */}
             <button className="btn btn-success" onClick={onClickPost}>Save</button>
             {/* <button className="btn btn-success" onClick={getTitle}>Save</button> */}
             <button className="btn btn-danger" onClick={onClickCancel}>Cancel</button>
