@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select';
 import { useParams } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
-import S3Upload from './S3Upload';
+import '../../App.css';
+import AWS from 'aws-sdk';
+import { Row, Col, Button, Input, Alert } from 'reactstrap';
 
 function CreateBoard() {
   const userId = localStorage.getItem("userEmail");
