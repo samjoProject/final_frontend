@@ -7,202 +7,238 @@ import BoardService from '../../service/BoardService';
 import S3Upload from './S3Upload';
 
 function CreateBoard() {
-    const userId = localStorage.getItem("userEmail");  
-    const { id } = useParams();
-    const [category, setCategory] = useState('')
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [imgBase64, setImgBase64] = useState([]); // 파일 base64
-    const [imgFile, setImgFile] = useState(null);	//파일	
+  const userId = localStorage.getItem("userEmail");
+  const { id } = useParams();
+  const [category, setCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [imgBase64, setImgBase64] = useState([]); // 파일 base64
+  const [imgFile, setImgFile] = useState(null); //파일
 
-    const changeCategoryHandler = (e) => {
-        setCategory(e.currentTarget.value);
-    }
+  //파일선택
+  const [progress, setProgress] = useState(0);
+  const [selectedFile, setSelectedFile] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  
+  // S3버킷정보
+  const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY_ID;
+  const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+  const REGION = "us-east-1";
+  const S3_BUCKET = "nanuri-files";
 
-    const changeTitleHandler = (e) => {
-        setTitle(e.currentTarget.value);
-    }
+  AWS.config.update({
+    accessKeyId: ACCESS_KEY,
+    secretAccessKey: SECRET_ACCESS_KEY,
+  });
 
-    const changeContentHandler = (e) => {
-        setContent(e.currentTarget.value);
-    }
+  const myBucket = new AWS.S3({
+    accessKeyId: ACCESS_KEY,
+    secretAccessKey: SECRET_ACCESS_KEY,
+    params: { Bucket: S3_BUCKET },
+    region: REGION,
+  });
 
-    // 저장버튼
-    // const onClickPost = (e) => {
-    //     e.preventDefault();
-    //     let board = {
-    //         title: title,
-    //         content: content,
-    //         userId: userId
-    //     };
-    //     console.log("board => " + JSON.stringify(board));
+  // 파일선택
+  const handleFileInput = (e) => {
+    const file = e.target.files[0];
+    const fileName =
+      Math.random().toString(36).substring(2, 11) + "_" + file.name;
+    console.log(fileName);
 
-    //         BoardService.createBoard(board).then(res => {
-    //             window.location.href = "/board";  
-    //         });
+    setProgress(0);
+    setSelectedFile(file);
+    setFileId(fileName);
+  };
 
-    //     }
+  const changeCategoryHandler = (e) => {
+    setCategory(e.currentTarget.value);
+  };
 
-    // 저장버튼 - 새로운버전
-    const onClickPost = (e) => {
-        e.preventDefault();
-        let board = {
-            category: category,
-            title: title,
-            content: content,
-            userId: userId,
-            // fileId: fileId
+  const changeTitleHandler = (e) => {
+    setTitle(e.currentTarget.value);
+  };
+
+  const changeContentHandler = (e) => {
+    setContent(e.currentTarget.value);
+  };
+
+const uploadFile = (file) => {
+        console.log(file.name)
+        const params = {
+
+            Body: file,
+            Bucket: S3_BUCKET,
+            Key: "upload/" + fileId
+            
+            
         };
-
-        console.log("board => " + JSON.stringify(board));
-        if (id === 'create') {
-            if (window.confirm("글작성 완료"))
-                console.log('새글작성')
-            BoardService.createBoard(board).then(res => {
-                window.location.href = "/board";
-            });
-        } else {
-            console.log('업데이트')
-            if (window.confirm("수정 완료"))
-                BoardService.updateBoard(id, board).then(res => {
-                    window.location.href = "/board";
-                });
-        }
-    };
-
-    // 
-    // const getTitle = () => {
-    //     if (id === 'create') {
-    //         return <h3 className="text-center">새글을 작성해주세요</h3>
-    //     }
-    //     else {
-    //         return <h3 className="text-center">{id} 글을 수정합니다. </h3>
-    //     }
-    // };
-
-    // 취소버튼
-    const onClickCancel = () => {
-        if (window.confirm("글작성 취소"))
-            console.log('this is cancel');
-        window.location.href = "/board";
-    }
-
-    // 수정하기
-    useEffect(() => {
-        if (id === 'create') {
-            return
-        } else {
-            BoardService.getOneBoard(id).then((res) => {
-                let board = res.data;
-                console.log("useEffect board => " + JSON.stringify(board));
-
-                let boards = ({
-                    title: board.title,
-                    content: board.content,
-                    // userId: board.userId
-                })
-                console.log("boards", boards)
+        myBucket.putObject(params)
+            .on('httpUploadProgress', (evt) => {
+                setProgress(Math.round((evt.loaded / evt.total) * 100))
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                    setSelectedFile(null);
+                }, 3000)
+            })
+            .send((err) => {
+                if (err) console.log(err)
             })
         }
-    }, []);
 
-    // 파일 선택 버튼 
-    // const changeFileHandler = (event) => {
-    //     console.log(event.target.files)
-    //     setImgFile(event.target.files);
-    //     //fd.append("file", event.target.files)
-    //     setImgBase64([]);
-    //     for (var i = 0; i < event.target.files.length; i++) {
-    //         if (event.target.files[i]) {
-    //             let reader = new FileReader();
-    //             reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
-    //             // 파일 상태 업데이트
-    //             reader.onloadend = () => {
-    //                 // 2. 읽기가 완료되면 아래코드가 실행됩니다.
-    //                 const base64 = reader.result;
-    //                 console.log(base64)
-    //                 if (base64) {
-    //                     //  images.push(base64.toString())
-    //                     var base64Sub = base64.toString()
+  // 저장버튼 - 새로운버전
+  const onClickPost = (e) => {
+    e.preventDefault();
+    let board = {
+      category: category,
+      title: title,
+      content: content,
+      userId: userId,
+      // fileId: fileId
+    };
 
-    //                     setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
-    //                     //  setImgBase64(newObj);
-    //                     // 파일 base64 상태 업데이트
-    //                     //  console.log(images)
-    //                 }
-    //             }
-    //         }
-    //     }
+    console.log("board => " + JSON.stringify(board));
+    if (id === 'create') {
+        if (window.confirm("글작성을 완료하시겠습니까?"))
+        <uploadFile />
+        console.log('새글작성')
+        BoardService.createBoard(board).then(res => {
+            window.location.href = "/board";
+        });
+    } else {
+        console.log('업데이트')
+        if (window.confirm("수정 완료"))
+            BoardService.updateBoard(id, board).then(res => {
+                window.location.href = "/board";
+            });
+    }
+};
 
-    
+  //
+  // const getTitle = () => {
+  //     if (id === 'create') {
+  //         return <h3 className="text-center">새글을 작성해주세요</h3>
+  //     }
+  //     else {
+  //         return <h3 className="text-center">{id} 글을 수정합니다. </h3>
+  //     }
+  // };
 
+  // 취소버튼
+  const onClickCancel = () => {
+    if (window.confirm("글작성 취소")) console.log("this is cancel");
+    window.location.href = "/board";
+  };
 
-    return (
-      <div>
-        <h2>CreateBoard</h2>
+  // 수정하기
+  useEffect(() => {
+    if (id === "create") {
+      return;
+    } else {
+      BoardService.getOneBoard(id).then((res) => {
+        let board = res.data;
+        console.log("useEffect board => " + JSON.stringify(board));
 
-        <form>
-          <label> Category </label>
-          <select
-            placeholder="category"
-            name="category"
-            className="form-control"
-            onChange={changeCategoryHandler}
-            defaultValue="none"
-          >
-            <option value="none" disabled hidden>
-              선택해주세요
-            </option>
-            <option value="강의자료">강의자료</option>
-            <option value="공지사항">공지사항</option>
-          </select>
-          {/* <Select placeholder="카테고리 선택" 
-                options={}/> */}
-          <div className="card-body">
-            <div className="form-group">
-              <label> Title </label>
-              <input
-                type="text"
-                placeholder="title"
-                name="title"
-                className="form-control"
-                value={title}
-                onChange={changeTitleHandler}
-              />
-            </div>
-            <div className="form-group">
-              <label> Content </label>
-              <textarea
-                placeholder="content"
-                name="content"
-                className="form-control"
-                value={content}
-                onChange={changeContentHandler}
-              />
-            </div>
-            <div className="form-group">
-              <label> userId </label>
-              <input
-                placeholder="userId"
-                name="userId"
-                className="form-control"
-                value={userId}
-                readOnly
-              />
-            </div>
-            {/* <input type="file" id="file" onChange={changeFileHandler} multiple="multiple" /> */}
+        let boards = {
+          title: board.title,
+          content: board.content,
+          // userId: board.userId
+        };
+        console.log("boards", boards);
+      });
+    }
+  }, []);
+
+  // 파일 선택 버튼
+  // const changeFileHandler = (event) => {
+  //     console.log(event.target.files)
+  //     setImgFile(event.target.files);
+  //     //fd.append("file", event.target.files)
+  //     setImgBase64([]);
+  //     for (var i = 0; i < event.target.files.length; i++) {
+  //         if (event.target.files[i]) {
+  //             let reader = new FileReader();
+  //             reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
+  //             // 파일 상태 업데이트
+  //             reader.onloadend = () => {
+  //                 // 2. 읽기가 완료되면 아래코드가 실행됩니다.
+  //                 const base64 = reader.result;
+  //                 console.log(base64)
+  //                 if (base64) {
+  //                     //  images.push(base64.toString())
+  //                     var base64Sub = base64.toString()
+
+  //                     setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
+  //                     //  setImgBase64(newObj);
+  //                     // 파일 base64 상태 업데이트
+  //                     //  console.log(images)
+  //                 }
+  //             }
+  //         }
+  //     }
+
+  return (
+    <div>
+      <h2>CreateBoard</h2>
+
+      <form>
+        <label> Category </label>
+        <select
+          placeholder="category"
+          name="category"
+          className="form-control"
+          onChange={changeCategoryHandler}
+          defaultValue="none"
+        >
+          <option value="none"disabled hidden>카테고리를 선택해주세요.</option>
+          <option value="강의자료">강의자료</option>
+          <option value="공지사항">공지사항</option>
+        </select>
+        <div className="card-body">
+          <div className="form-group">
+            <label> Title </label>
+            <input
+              type="text"
+              placeholder="title"
+              name="title"
+              className="form-control"
+              value={title}
+              onChange={changeTitleHandler}
+            />
           </div>
-        </form>
-        <S3Upload />
-        <button className="btn btn-success" onClick={onClickPost}>
-          Save
-        </button>
-        {/* <button className="btn btn-success" onClick={getTitle}>Save</button> */}
-        <button className="btn btn-danger" onClick={onClickCancel}>
-          Cancel
-        </button>
-      </div>
-    );
+          <div className="form-group">
+            <label> Content </label>
+            <textarea
+              placeholder="content"
+              name="content"
+              className="form-control"
+              value={content}
+              onChange={changeContentHandler}
+            />
+          </div>
+          <div className="form-group">
+            <label> userId </label>
+            <input
+              placeholder="userId"
+              name="userId"
+              className="form-control"
+              value={userId}
+              readOnly
+            />
+          </div>
+          {/* <input type="file" id="file" onChange={changeFileHandler} multiple="multiple" /> */}
+        </div>
+      </form>
+      {/* <S3Upload /> */}
+      <button className="btn btn-success" onClick={onClickPost}>
+        Save
+      </button>
+      {/* <button className="btn btn-success" onClick={getTitle}>Save</button> */}
+      <button className="btn btn-danger" onClick={onClickCancel}>
+        Cancel
+      </button>
+    </div>
+  );
 }
 
 export default CreateBoard;
