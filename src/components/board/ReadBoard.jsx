@@ -85,16 +85,21 @@ function ReadBoard() {
                     </div>
                     <div className="row">
 
-                        <label> Title </label> : {data.title}
+                        <label> 제목 </label> : {data.title}
                     </div>
 
                     <div className="row">
-                        <label> Contents </label> : <br></br>
+                        <label> 내용 </label>  <br></br>
                         <textarea value={data.content} readOnly />
                     </div >
 
                     <div className="row">
-                        <label> UserId  </label>: {data.userId}
+                        <label> 첨부파일 </label>  {data.fildId}
+                        <textarea value={data.fildId} readOnly />
+                    </div >
+
+                    <div className="row">
+                        <label> 작성자  </label>: {data.userId}
                     </div>
                     <div className="row">
                         {(data.regDate)}
