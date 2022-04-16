@@ -118,7 +118,7 @@ function CreateBoard() {
             <uploadFile />
             console.log('새글작성')
             BoardService.createBoard(board).then(res => {
-                // window.location.href = "/board";
+                window.location.href = "/board";
             });
         } else {
             console.log('업데이트')

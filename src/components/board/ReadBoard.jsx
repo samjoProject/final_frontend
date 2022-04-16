@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
-import { withRouter, useParams } from 'react-router-dom';
+import { withRouter, useParams, Link } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
-import axios from 'axios';
+
 
 function ReadBoard() {
 
@@ -30,9 +30,18 @@ function ReadBoard() {
         console.log('2. useEffect', { id })
         BoardService.getOneBoard(id).then(res => {
             setData(res.data);
-            console.log('4. res', res)
+            console.log('file:', res.data.fileId)
+            console.log('4. res', res.data)
+            
         });
+        
     }, [])
+
+    const fileId = 'https://nanuri-files.s3.amazonaws.com/upload/' + data.fileId 
+    const fileName = ""+data.fileId
+    console.log(fileId)
+    console.log(typeof(data.fileId));
+    console.log('fileName: ', fileName)
 
     // 글목록 버튼 클릭 -> ListBoard
     const onClickList = () => {
@@ -59,8 +68,6 @@ function ReadBoard() {
                     alert("글 삭제가 실패했습니다.");
                 }
             });
-            // console.log("useEffect board => "+ JSON.stringify(board));
-            // if(window.confirm("삭제할거야?"))
         }
     };
 
@@ -80,24 +87,31 @@ function ReadBoard() {
 
 
                     <div className="row">
-
-                        <label> Category </label> : {data.category}
+                        <label> Category </label> : {data.category} 
                     </div>
-                    <div className="row">
 
+                    <br></br>
+                    <div className="row">
                         <label> 제목 </label> : {data.title}
                     </div>
 
+                    <br></br>
                     <div className="row">
                         <label> 내용 </label>  <br></br>
                         <textarea value={data.content} readOnly />
                     </div >
 
+                    <br></br>
                     <div className="row">
-                        <label> 첨부파일 </label>  {data.fildId}
-                        <textarea value={data.fildId} readOnly />
+                        <label> 첨부파일 </label>  
+                        
+                        <a href={fileId} value="다운로드">
+                            {fileName.substring(10)}
+                        </a>
+                        <br></br>
                     </div >
 
+                    <br></br>
                     <div className="row">
                         <label> 작성자  </label>: {data.userId}
                     </div>
