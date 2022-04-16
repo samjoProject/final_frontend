@@ -33,13 +33,13 @@ const AuthSignUp = () => {
       let data = await window.Kakao.API.request({
         url: "/v2/user/me",
       });
-      localStorage.setItem("email", data.kakao_account.email);
+      localStorage.setItem("userEmail", data.kakao_account.email);
       localStorage.setItem("birthday", data.kakao_account.birthday);
     } catch (err) {
       console.log(err);
     }
 
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem("userEmail");
     await axios({
       url: `http://localhost:8080/checkDB`,
       method: 'get',

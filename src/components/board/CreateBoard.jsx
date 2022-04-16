@@ -7,13 +7,11 @@ import BoardService from '../../service/BoardService';
 import S3Upload from './S3Upload';
 
 function CreateBoard() {
-
-
+    const userId = localStorage.getItem("userEmail");  
     const { id } = useParams();
     const [category, setCategory] = useState('')
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [userId, setUserId] = useState('');
     const [imgBase64, setImgBase64] = useState([]); // 파일 base64
     const [imgFile, setImgFile] = useState(null);	//파일	
 
@@ -27,10 +25,6 @@ function CreateBoard() {
 
     const changeContentHandler = (e) => {
         setContent(e.currentTarget.value);
-    }
-
-    const changeUserIdHandler = (e) => {
-        setUserId(e.currentTarget.value);
     }
 
     // 저장버튼
@@ -144,44 +138,71 @@ function CreateBoard() {
 
 
     return (
-        <div>
-            <h2>CreateBoard</h2>
+      <div>
+        <h2>CreateBoard</h2>
 
-            <form>
-                <label> Category </label>
-                <select placeholder="category" name="category" className="form-control"
-                    value={category} onChange={changeCategoryHandler}>
-                    <option value="강의자료">강의자료</option>
-                    <option value="공지사항">공지사항</option>
-                </select>
-                {/* <Select placeholder="카테고리 선택" 
+        <form>
+          <label> Category </label>
+          <select
+            placeholder="category"
+            name="category"
+            className="form-control"
+            onChange={changeCategoryHandler}
+            defaultValue="none"
+          >
+            <option value="none" disabled hidden>
+              선택해주세요
+            </option>
+            <option value="강의자료">강의자료</option>
+            <option value="공지사항">공지사항</option>
+          </select>
+          {/* <Select placeholder="카테고리 선택" 
                 options={}/> */}
-                <div className="card-body">
-                    <div className="form-group">
-                        <label> Title </label>
-                        <input type="text" placeholder="title" name="title" className="form-control"
-                            value={title} onChange={changeTitleHandler} />
-                    </div>
-                    <div className="form-group">
-                        <label> Content  </label>
-                        <textarea placeholder="content" name="content" className="form-control"
-                            value={content} onChange={changeContentHandler} />
-                    </div>
-                    <div className="form-group">
-                        <label> userId  </label>
-                        <input placeholder="userId" name="userId" className="form-control"
-                            value={userId} onChange={changeUserIdHandler} />
-                    </div>
-                    {/* <input type="file" id="file" onChange={changeFileHandler} multiple="multiple" /> */}
-                </div>
-            </form>
-            <S3Upload />    
-            <button className="btn btn-success" onClick={onClickPost}>Save</button>
-            {/* <button className="btn btn-success" onClick={getTitle}>Save</button> */}
-            <button className="btn btn-danger" onClick={onClickCancel}>Cancel</button>
-        </div >
-
-    )
+          <div className="card-body">
+            <div className="form-group">
+              <label> Title </label>
+              <input
+                type="text"
+                placeholder="title"
+                name="title"
+                className="form-control"
+                value={title}
+                onChange={changeTitleHandler}
+              />
+            </div>
+            <div className="form-group">
+              <label> Content </label>
+              <textarea
+                placeholder="content"
+                name="content"
+                className="form-control"
+                value={content}
+                onChange={changeContentHandler}
+              />
+            </div>
+            <div className="form-group">
+              <label> userId </label>
+              <input
+                placeholder="userId"
+                name="userId"
+                className="form-control"
+                value={userId}
+                readOnly
+              />
+            </div>
+            {/* <input type="file" id="file" onChange={changeFileHandler} multiple="multiple" /> */}
+          </div>
+        </form>
+        <S3Upload />
+        <button className="btn btn-success" onClick={onClickPost}>
+          Save
+        </button>
+        {/* <button className="btn btn-success" onClick={getTitle}>Save</button> */}
+        <button className="btn btn-danger" onClick={onClickCancel}>
+          Cancel
+        </button>
+      </div>
+    );
 }
 
 export default CreateBoard;

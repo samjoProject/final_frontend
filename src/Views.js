@@ -24,6 +24,7 @@ import FindClass from './components/SignUp/FindClass';
 import { UserOutlined } from "@ant-design/icons";
 import S3Upload from "./components/board/S3Upload";
 import ManagerPage from "./components/ManagerPage/ManagerPage";
+import NoPers from "./components/NoPers";
 
 
 
@@ -35,6 +36,7 @@ const { Header, Content, Sider } = Layout;
 function callback(key) {
 
 }
+const userPers = localStorage.getItem("userPers");
 
 function Views() {
   if (localStorage.getItem("status") != null) {
@@ -61,10 +63,14 @@ function Views() {
                 <Menu.Item key="4">
                   <Link to="/managerpage">관리자</Link>
                 </Menu.Item>
-                {/* 
-              <span className="logout">
-                <a href="localhost:3000/logout">로그아웃</a>
-              </span> */}
+                
+                <Menu.Item key="5">
+                  <a onClick={(e)=>{
+                    alert("로그아웃 되었습니다.");
+                    localStorage.clear();
+                    window.location.href="http://localhost:3000/home";
+                  }}>로그아웃</a>
+                </Menu.Item>
               </Menu>
             </Header>
 
@@ -90,8 +96,11 @@ function Views() {
                     minHeight: 280,
                   }}
                 >
-
-                  <Routes>
+                  {/* {
+                    userPers ==="0" ?
+                    <Route path = "/*" element={<NoPers />}></Route>
+                    : */}
+                    <Routes>
                     <Route path="/mainpage" element={<Calendar />}></Route>
                     <Route path="/calendar" element={<Calendar />}></Route>
                     <Route path="/board" element={<ListBoard />}></Route>
@@ -99,6 +108,7 @@ function Views() {
                     <Route path="/read-board/:id" element={<ReadBoard />}></Route>
                     <Route path="/managerpage" element={<ManagerPage />}></Route>
                   </Routes>
+                  {/* } */}
                 </Content>
               </Layout>
             </Layout>
@@ -106,6 +116,7 @@ function Views() {
         </div>
       </BrowserRouter>
     );
+  
   } else {
     return (
       <BrowserRouter>

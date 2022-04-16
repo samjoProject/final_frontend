@@ -12,13 +12,14 @@ import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { deleteTodoAsync } from "../../redux/todoSlice";
+import NoPers from "../NoPers";
 
 const Calendar = ({ id }) => {
-  
+  const userPers = localStorage.getItem("userPers")
   const [modalOpen, setModalOpen] = useState(false);
 
   const dispatch = useDispatch();
- 
+
   const [todoList, setTodoList] = useState([]);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const Calendar = ({ id }) => {
 
   // 일정 타이틀 캘린더 해당 일자에 띄우는 함수
   const schedule_list = todoList.map((val) => {
-    
+
     // console.log("schedule_list:", val.id);
     return {
       id: val.id,
@@ -48,17 +49,17 @@ const Calendar = ({ id }) => {
   });
 
   // console.log("schedule_list", schedule_list[0]);
- 
+
   const handleDeleteClick = (e) => {
     // console.log(schedule_list.map((id) => ( id={id} )))
     const deleteYn = window.confirm("일정을 삭제하시겠습니까?");
     if (deleteYn) {
       dispatch(deleteTodoAsync(
         e.event.id
-        ));
+      ));
       // console.log(e.event.id);
     }
-    window.location="/calendar"
+    window.location = "/calendar"
   };
 
   //날짜를 문자열로
@@ -71,56 +72,71 @@ const Calendar = ({ id }) => {
     locale: "ko",
   });
 
-  return (
-    <div>
-      <Container>
-        <FullCalendar
-          headerToolbar={{
-            left: "today",
-            center: "title",
-            right: "prev,next",
-          }}
-          plugins={[interactionPlugin, dayGridPlugin]}
-          defaultView="dayGridMonth"
-          // dateClick={this.handleDateClick}
-          weekends={true}
-          // navLinks={true} // 달력 날짜 클릭할 수 있게 해줌, 기본값 falase라 설정해줘야함. 날짜 클릭시 그날로 이동
-          // droppable={true}
-          selectable={true} // 달력에서 드래그로 날짜 선택
-          selectMirror={true}
-          // editable={true} // 달력 내에서 일정 옮기고 수정
+  if(userPers === "0"){
+    return(
+      NoPers()
+    )
+  }else{
+    return (
+      <div>
+        <Container>
+          <FullCalendar
+            headerToolbar={{
+              left: "today",
+              center: "title",
+              right: "prev,next",
+            }}
+            plugins={[interactionPlugin, dayGridPlugin]}
+            defaultView="dayGridMonth"
+            // dateClick={this.handleDateClick}
+            weekends={true}
+            // navLinks={true} // 달력 날짜 클릭할 수 있게 해줌, 기본값 falase라 설정해줘야함. 날짜 클릭시 그날로 이동
+            // droppable={true}
+            selectable={true} // 달력에서 드래그로 날짜 선택
+            selectMirror={true}
+            // editable={true} // 달력 내에서 일정 옮기고 수정
+            
+            locale="ko" //  한국어 설정
+            // dateClick={handleDateClick} // 요일클릭 이벤트
+            // dateClick={function () {
+            //   alert("요일 클릭");
+            // }} // 요일클릭 이벤트
+            // eventClick={
+            //  console.log("이벤트 클릭")
+            // } // 일정 클릭 이벤트
 
-          locale="ko" //  한국어 설정
-          // dateClick={handleDateClick} // 요일클릭 이벤트
-          // dateClick={function () {
-          //   alert("요일 클릭");
-          // }} // 요일클릭 이벤트
-          // eventClick={
-          //  console.log("이벤트 클릭")
-          // } // 일정 클릭 이벤트
-
-          events={schedule_list}
-          // eventClick={() => handleDeleteClick(schedule_list)} // 일정 클릭 이벤트
-          eventClick={handleDeleteClick} // 일정 클릭 이벤트
+            events={schedule_list}
+            // eventClick={() => handleDeleteClick(schedule_list)} // 일정 클릭 이벤트
+            eventClick={handleDeleteClick} // 일정 클릭 이벤트
           //   events={[
           //   { title: "event1", date: "2022-03-12" },
           //   { title: "event2", date: "2022-03-14" },
           // ]}
-        />
+          />
+          {
+            userPers === "1" ?
+              <></>
+              : <Button
+                type="button"
+                className="btn btn-primary"
+                data-toggle="modal"
+                data-target="#exampleModalScrollable"
+                onClick={() => setModalOpen(true)}
+              >
+                + 일정 등록
+              </Button>
+          }
+          <TodoModal show={modalOpen} onHide={() => setModalOpen(false)} />
+        </Container>
+      </div>
+    );
+  }
 
-        <Button
-          type="button"
-          className="btn btn-primary"
-          data-toggle="modal"
-          data-target="#exampleModalScrollable"
-          onClick={() => setModalOpen(true)}
-        >
-          + 일정 등록
-        </Button>
-        <TodoModal show={modalOpen} onHide={() => setModalOpen(false)} />
-      </Container>
-    </div>
-  );
+
+
+
+
+
 };
 
 const Container = styled.div`

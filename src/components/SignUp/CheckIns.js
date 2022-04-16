@@ -18,10 +18,10 @@ function CheckIns() {
             }).then((res) => {
                 alert(res.data.msg);
                 if (res.data.code === 100) {
-                    window.location = 'http://localhost:3000/home';
+                    window.location.href = "http://localhost:3000/home";
                 } else if (res.data.code === 200) {
                     localStorage.setItem("CN", document.querySelector('[name=className]').value);
-                    window.location = 'http://localhost:3000/signupmanager';
+                    window.location.href = "http://localhost:3000/signupmanager";
                 }
             }).catch(function (error) {
                 console.log(error);

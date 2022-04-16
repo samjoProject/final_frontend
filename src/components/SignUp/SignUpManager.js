@@ -9,7 +9,7 @@ function SignUpManager() {
         <form onSubmit={(e) => {
             e.preventDefault();
             const inputData = qs.stringify({
-                userEmail: localStorage.getItem("email"),
+                userEmail: localStorage.getItem("userEmail"),
                 userName: document.querySelector('[name=userName]').value,
                 userBirth: document.querySelector('[name=birthyear').value + localStorage.getItem("birthday"),
                 userAge: document.querySelector('[name = userAge]').value,
@@ -32,7 +32,7 @@ function SignUpManager() {
                 <div className="signUpTableContent">
                     <label id="userEmail" className="pI">ID(email)</label>
                     <div>
-                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("email")} readOnly />
+                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("userEmail")} readOnly />
                     </div>
                 </div>
 
@@ -77,24 +77,24 @@ function SignUpManager() {
                 <div className="signUpTableContent">
                     <label id="CN" className="pI">교육과정</label>
                     <div>
-                      <input type="text" className="inputDataAlready" value={localStorage.getItem("CN")} readOnly />
+                        <input type="text" className="inputDataAlready" value={localStorage.getItem("CN")} readOnly />
                     </div>
                 </div>
 
-                
+
             </div>
             <input type="submit" className="signUpComplete" value="회원가입" />
-            
+
         </form>
     )
 }
 
-function year(){
+function year() {
     var array = [];
     let data = [];
-    for (let i =2000; i>1970; i--){
+    for (let i = 2000; i > 1970; i--) {
         data[i] = i;
-        array.push(<option key = {data[i]} value = {i}>{i}</option>);
+        array.push(<option key={data[i]} value={i}>{i}</option>);
     }
     return array;
 }
