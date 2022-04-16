@@ -81,7 +81,7 @@ function ReadBoard() {
             {/* <h2 className="text-center">{id} Boards List</h2> */}
             {/* <div>{data && <textarea rows={7} value={JSON.stringify(data)} />}</div>  */}
 
-            <div className="card col-md-6 offset-md-3">
+            <div className="card col-ld-6 offset-ld-3">
                 <h3 className="text-center"> Read Detail</h3>
                 <div className="card-body">
 
