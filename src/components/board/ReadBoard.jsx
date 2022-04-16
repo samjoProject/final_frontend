@@ -94,13 +94,13 @@ function ReadBoard() {
                     </div>
 
                     <div className="row">
-                        <label> 내용 </label> : <br></br>
+                        <label> 내용 </label>  <br></br>
                         <textarea value={data.content} readOnly />
                     </div >
 
                     <div className="row">
-                        <label> 첨부파일 </label> : {data.fildId}
-                        {/* <textarea value={data.fildId} readOnly /> */}
+                        <label> 첨부파일 </label>  {data.fildId}
+                        <textarea value={data.fildId} readOnly />
                     </div >
 
                     <div className="row">
