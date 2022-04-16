@@ -3,11 +3,6 @@ import { withRouter, useParams } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
 import axios from 'axios';
 
-
-
-
-
-
 function ReadBoard() {
 
 

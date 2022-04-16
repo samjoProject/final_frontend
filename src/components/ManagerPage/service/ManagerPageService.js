@@ -1,0 +1,70 @@
+import axios from "axios";
+
+function GivePersTeacher(userEmailInput) {
+    axios({
+        url: 'http://localhost:8080/givePersTeacher',
+        method: 'post',
+        params: {
+            userEmail: userEmailInput
+        }
+    }).then((res) => {
+        console.log(res.data);
+        btnDisabledTeacher();
+    }).catch(function (error) {
+        console.log(error.response.data);
+    })
+}
+function DeleteTeacher(userEmailInput){
+    axios({
+        url: 'http://localhost:8080/deleteTeacher',
+        method: 'post',
+        params:{
+            userEmail : userEmailInput
+        }
+    }).then((res)=>{
+        alert(res.data);
+        window.location.reload();
+    }).catch(function (error){
+        console.log(error.response.data);
+    })
+}
+function GivePersStudent(userEmailInput) {
+    axios({
+        url: 'http://localhost:8080/givePersStudent',
+        method: 'post',
+        params: {
+            userEmail: userEmailInput
+        }
+    }).then((res) => {
+        console.log(res.data);
+        btnDisabledStudent(userEmailInput);
+    }).catch(function (error) {
+        console.log(error.response.data);
+    })
+}
+function DeleteStudent(userEmailInput){
+    axios({
+        url: 'http://localhost:8080/deleteStudent',
+        method: 'post',
+        params:{
+            userEmail : userEmailInput
+        }
+    }).then((res)=>{
+        alert(res.data);
+        window.location.reload();
+    }).catch(function (error){
+        console.log(error.response.data);
+    })
+}
+
+
+function btnDisabledTeacher() {
+    const target = document.getElementById('target_btn_teacher');
+    target.disabled = true;
+}
+function btnDisabledStudent(ID) {
+    const target = document.getElementById(ID);
+    target.disabled = true;
+}
+
+export {GivePersTeacher, DeleteTeacher, GivePersStudent, DeleteStudent};
