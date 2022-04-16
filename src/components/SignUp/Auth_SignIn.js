@@ -32,12 +32,12 @@ const AuthSignIn = () => {
       let data = await window.Kakao.API.request({
         url: "/v2/user/me",
       });
-      localStorage.setItem("email", data.kakao_account.email);
+      localStorage.setItem("userEmail", data.kakao_account.email);
     } catch (err) {
       console.log(err);
     }
 
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem("userEmail");
     await axios({
       url: `http://localhost:8080/checkDBSignIn`,
       method: 'get',

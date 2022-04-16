@@ -116,7 +116,7 @@ function ManagerPage() {
                                     rowData.userPers === "0" ?
                                         <td value={rowData.id}>
                                             <button
-                                                id="target_btn_teacher"
+                                                id={rowData.userEmail}
                                                 className="decideButton"
                                                 value="승인"
                                                 onClick={(e) => GivePersTeacher(rowData.userEmail)

@@ -9,7 +9,7 @@ function SignUpTeacher() {
             e.preventDefault();
             const inputData = qs.stringify({
                 userName: document.querySelector('[name=userName]').value,
-                userEmail: localStorage.getItem("email"),
+                userEmail: localStorage.getItem("userEmail"),
                 userBirth: document.querySelector('[name=birthyear').value + localStorage.getItem("birthday"),
                 userPhone: document.querySelector('[name = userPhone]').value,
                 className: localStorage.getItem("CN"),
@@ -32,7 +32,7 @@ function SignUpTeacher() {
                 <div className="signUpTableContent">
                     <label id="userEmail" className="pI">ID(email)</label>
                     <div>
-                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("email")} readOnly />
+                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("userEmail")} readOnly />
                     </div>
                 </div>
 

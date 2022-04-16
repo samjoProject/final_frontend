@@ -9,7 +9,7 @@ function GivePersTeacher(userEmailInput) {
         }
     }).then((res) => {
         console.log(res.data);
-        btnDisabledTeacher();
+        btnDisabledTeacher(userEmailInput);
     }).catch(function (error) {
         console.log(error.response.data);
     })
@@ -58,8 +58,8 @@ function DeleteStudent(userEmailInput){
 }
 
 
-function btnDisabledTeacher() {
-    const target = document.getElementById('target_btn_teacher');
+function btnDisabledTeacher(ID) {
+    const target = document.getElementById(ID);
     target.disabled = true;
 }
 function btnDisabledStudent(ID) {

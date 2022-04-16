@@ -1,44 +1,40 @@
-import React, { Component, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import axios from 'axios';
-import BoardService from '../../service/BoardService';
-
-
+import React, { Component, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { withRouter } from "react-router";
+import axios from "axios";
+import BoardService from "../../service/BoardService";
 
 function ListBoard() {
-  
-      // const pageNum = 1;
-      // const {paging, setPaging} = {};
-      const [boards, setBoards] = useState([]);
-    
-    // this.createBoard = this.createBoard.bind(this); // createBoard함수 바인딩
+  const userPers = localStorage.getItem("userPers");
+  // const pageNum = 1;
+  // const {paging, setPaging} = {};
+  const [boards, setBoards] = useState([]);
 
-  
-  // 글목록 
+  // this.createBoard = this.createBoard.bind(this); // createBoard함수 바인딩
+
+  // 글목록
   useEffect(() => {
     BoardService.getBoards().then((res) => {
-      console.log('1',boards)
+      console.log("1", boards);
       // pageNum(res.data.pagingData.currentPageNum),
       // setPaging(res.data.pagingData),
       setBoards(res.data);
-
-  })
-},[])
+    });
+  }, []);
 
   // 글쓰기 버튼 클릭 -> 클쓰기
   // const createBoard = () => {
   //   window.location.href = "/create-board/"
   // }
   const createBoard = () => {
-    window.location.href = "/create-board/create"
-  }
+    window.location.href = "/create-board/create";
+  };
 
-  // 글 선택 -> 상세보기 
+  // 글 선택 -> 상세보기
   const readBoard = (id) => {
-    console.log('this is:', id);
+    console.log("this is:", id);
     window.location.href = `/read-board/${id}`;
-  }
+  };
 
   // const listBoard = (pageNum) => {
   //   console.log('listboard pageNum:', pageNum);
@@ -74,57 +70,58 @@ function ListBoard() {
   //   }
   // }
 
-  
-    return (
-      <div>
-        <h2 className="text-center">Boards List</h2>
-        
+  return (
+    <div>
+      <h2 className="text-center">Boards List</h2>
+      <div className="row">
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>글 번호</th>
+              <th>카테고리 </th>
+              <th>타이틀 </th>
+              <th>작성자 </th>
+              <th>작성일 </th>
 
-        <div className="row">
-          <table className="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th>글 번호</th>
-                <th>카테고리 </th>
-                <th>타이틀 </th>
-                <th>작성자 </th>
-                <th>작성일 </th>
-
-                {/* <th>조회수</th> */}
+              {/* <th>조회수</th> */}
+            </tr>
+          </thead>
+          <tbody>
+            {boards.map((board) => (
+              <tr key={board.id}>
+                <td> {board.id} </td>
+                <td> {board.category} </td>
+                <td>
+                  {" "}
+                  <a onClick={() => readBoard(board.id)}>{board.title} </a>
+                </td>
+                <td> {board.userId} </td>
+                <td> {board.regDate} </td>
+                {/* <td> {board.updatedTime} </td> */}
+                {/* <td> {board.likes} </td> */}
+                {/* <td> {board.counts} </td> */}
               </tr>
-            </thead>
-            <tbody>
-              {
-                boards.map(
-                  
-                  board =>
-                    <tr key={board.id}>
-                      <td> {board.id} </td>
-                      <td> {board.category} </td>
-                      <td> <a onClick={() => readBoard(board.id)}>{board.title} </a></td>
-                      <td> {board.userId} </td>
-                      <td> {board.regDate} </td>
-                      {/* <td> {board.updatedTime} </td> */}
-                      {/* <td> {board.likes} </td> */}
-                      {/* <td> {board.counts} </td> */}
-                      
-                    </tr>
-                )
-              }
-            </tbody>
-          </table>
+            ))}
+          </tbody>
+        </table>
+
+        {userPers === "1" ? (
+          <></>
+        ) : (
           <div className="row">
-            <button className="btn btn-primary" onClick={createBoard}> 글쓰기 </button>
+            <button className="btn btn-primary" onClick={createBoard}>
+              {" "}
+              글쓰기{" "}
+            </button>
           </div>
-        </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
+}
 
-
-
-
-{/* function ListBoard() {
+{
+  /* function ListBoard() {
   const [boards, setBoards] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -162,8 +159,7 @@ function ListBoard() {
       ))}
     </ul>
   );
-} */}
-
-
+} */
+}
 
 export default ListBoard;
