@@ -15,8 +15,13 @@ function CreateBoard() {
     const [category, setCategory] = useState('')
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+
     const [fileId, setFileId] = useState('');
     const userId = localStorage.getItem("userEmail");
+
+    const [userId, setUserId] = useState('');
+    const [fileId, setFileId] = useState('');
+
 
     //파일선택
     const [progress, setProgress] = useState(0);
@@ -67,6 +72,11 @@ function CreateBoard() {
 
     const changeContentHandler = (e) => {
         setContent(e.currentTarget.value);
+    }
+
+
+    const changeUserIdHandler = (e) => {
+        setUserId(e.currentTarget.value);
     }
 
     const uploadFile = (file) => {
@@ -201,7 +211,6 @@ function CreateBoard() {
                 <label> Category </label>
                 <select placeholder="category" name="category" className="form-control"
                     value={category} onChange={changeCategoryHandler}>
-
                     <option value="" disabled hidden>카테고리를 선택해주세요.</option>
                     <option value="강의자료">강의자료</option>
                     <option value="공지사항">공지사항</option>

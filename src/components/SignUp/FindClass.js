@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
-import './/css/FindClass.css';
+import './css/FindClass.css';
 
 function FindClass() {
     const [inputData, setInputData] = useState([{

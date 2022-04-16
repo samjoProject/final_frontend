@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
-import { withRouter, useParams } from 'react-router-dom';
+import { withRouter, useParams, Link } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
-import axios from 'axios';
+
 
 function ReadBoard() {
 
@@ -30,9 +30,18 @@ function ReadBoard() {
         console.log('2. useEffect', { id })
         BoardService.getOneBoard(id).then(res => {
             setData(res.data);
-            console.log('4. res', res)
+            console.log('file:', res.data.fileId)
+            console.log('4. res', res.data)
+            
         });
+        
     }, [])
+
+    const fileId = 'https://nanuri-files.s3.amazonaws.com/upload/' + data.fileId 
+    const fileName = ""+data.fileId
+    console.log(fileId)
+    console.log(typeof(data.fileId));
+    console.log('fileName: ', fileName)
 
     // 글목록 버튼 클릭 -> ListBoard
     const onClickList = () => {
@@ -59,8 +68,6 @@ function ReadBoard() {
                     alert("글 삭제가 실패했습니다.");
                 }
             });
-            // console.log("useEffect board => "+ JSON.stringify(board));
-            // if(window.confirm("삭제할거야?"))
         }
     };
 
@@ -74,27 +81,39 @@ function ReadBoard() {
             {/* <h2 className="text-center">{id} Boards List</h2> */}
             {/* <div>{data && <textarea rows={7} value={JSON.stringify(data)} />}</div>  */}
 
-            <div className="card col-md-6 offset-md-3">
+            <div className="card col-ld-6 offset-ld-3">
                 <h3 className="text-center"> Read Detail</h3>
                 <div className="card-body">
 
 
                     <div className="row">
-
-                        <label> Category </label> : {data.category}
-                    </div>
-                    <div className="row">
-
-                        <label> Title </label> : {data.title}
+                        <label> Category </label> : {data.category} 
                     </div>
 
+                    <br></br>
                     <div className="row">
-                        <label> Contents </label> : <br></br>
+                        <label> 제목 </label> : {data.title}
+                    </div>
+
+                    <br></br>
+                    <div className="row">
+                        <label> 내용 </label>  <br></br>
                         <textarea value={data.content} readOnly />
                     </div >
 
+                    <br></br>
                     <div className="row">
-                        <label> UserId  </label>: {data.userId}
+                        <label> 첨부파일 </label>  
+                        
+                        <a href={fileId} value="다운로드">
+                            {fileName.substring(10)}
+                        </a>
+                        <br></br>
+                    </div >
+
+                    <br></br>
+                    <div className="row">
+                        <label> 작성자  </label>: {data.userId}
                     </div>
                     <div className="row">
                         {(data.regDate)}
