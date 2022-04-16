@@ -74,11 +74,11 @@ function Views() {
                   mode="inline"
                   defaultSelectedKeys={["1"]}
                   defaultOpenKeys={["sub1"]}
-                  style={{ height: "100%", borderRight: 0, backgroundColor: "black" }}
+                  style={{ height: "100%", borderRight: 0, backgroundColor: "white" }}
                 >
                   {/* <InfoContainer/> */}
-                  <h1> 컨테이너 들어갈 자리 </h1>
-                </Menu>
+                  
+                </Menu> 
               </Sider>
 
               <Layout style={{ padding: "24px 24px 24px" }}>
