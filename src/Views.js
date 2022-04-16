@@ -47,7 +47,7 @@ function Views() {
             <Header className="header">
               <img className="logo" src="../../images/logo.png" />
 
-              <Menu mode="horizontal" defaultSelectedKeys={["2"]}>
+              <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
                   <Link to="/calendar">홈</Link>
                 </Menu.Item>
