@@ -106,7 +106,9 @@ function CreateBoard() {
             title: title,
             content: content,
             userId: userId,
-            fileId: fileId
+            fileId: fileId,
+            counts: Number(0)
+
         };
 
         

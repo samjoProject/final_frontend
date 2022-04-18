@@ -18,3 +18,10 @@
 .App {
   padding: 20px;
 }
+
+/*아래 폰트*/
+@font-face {
+  font-family: "PoorStory";
+  font-weight: 10;
+  src: url("./fonts/PoorStory-Regular.ttf") format("truetype");
+} 

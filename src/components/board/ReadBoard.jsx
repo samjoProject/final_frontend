@@ -7,6 +7,7 @@ function ReadBoard() {
 
 
     const { id } = useParams();
+    const { counts } = useParams();
     const [data, setData] = useState('');
     console.log('1. useParams => ', id);
 
@@ -29,18 +30,13 @@ function ReadBoard() {
     useEffect(() => {
         console.log('2. useEffect', { id })
         BoardService.getOneBoard(id).then(res => {
-            setData(res.data);
-            console.log('file:', res.data.fileId)
-            console.log('4. res', res.data)
-            
+            setData(res.data);          
+            console.log('4. res', res.data)  
         });
-        
     }, [])
 
     const fileId = 'https://nanuri-files.s3.amazonaws.com/upload/' + data.fileId 
     const fileName = ""+data.fileId
-    console.log(fileId)
-    console.log(typeof(data.fileId));
     console.log('fileName: ', fileName)
 
     // 글목록 버튼 클릭 -> ListBoard
@@ -73,14 +69,8 @@ function ReadBoard() {
 
 
 
-
-
-
     return (
         <>
-            {/* <h2 className="text-center">{id} Boards List</h2> */}
-            {/* <div>{data && <textarea rows={7} value={JSON.stringify(data)} />}</div>  */}
-
             <div className="card col-ld-6 offset-ld-3">
                 <h3 className="text-center"> Read Detail</h3>
                 <div className="card-body">
@@ -130,99 +120,6 @@ function ReadBoard() {
 }
 
 
-
-// // class ReadBoard extends Component {
-// //     constructor(props) {
-// //         super(props)
-
-// //         this.state = {
-// //             id: props.match.params.id,
-// //             board: {}
-// //         }
-
-
-// // // const Profile = () => {
-// // // 	const { username } = useParams();
-// // // }
-// // // let id = props.match.params.id 에서 
-// // // const { id } = useParams(); 로 바꿈 
-
-// //      }
-
-
-// //     componentDidMount() {
-// //         BoardService.getOneBoard(this.state.id).then( res => {
-// //             this.setState({board: res.data});
-// //         });
-// //     }
-
-
-// //     returnBoardCategory(categoryNo) {
-// //         let category = null;
-// //         if (categoryNo === 1) {
-// //             category = "자유게시판";
-
-// //         } else if (categoryNo === 2 ) {
-// //             category = "질문과 답변 게시판";
-
-// //         } else {
-// //             category = "타입 미지정";
-// //         }
-
-// //         return (
-// //             <div className = "row">
-// //                 <label> Category : </label> {category}
-// //             </div>
-// //         )
-
-// //     }
-
-// //     returnDate(cTime) {
-// //         return (
-// //             <div className = "row">
-// //                 <label>생성일 : [ {cTime} ]  </label>
-// //             </div>
-// //         )
-// //     }
-
-
-// //     goToList() {
-// //         window.location.href = "/board";
-// //     }
-
-// //     render() {
-// //         return (
-// //             <div>
-// //                 <div className = "card col-md-6 offset-md-3">
-// //                     <h3 className ="text-center"> Read Detail</h3>
-// //                     <div className = "card-body">
-
-// //                             {this.returnBoardCategory(this.state.board.category)} 
-// //                             <div className = "row">      
-
-// //                                 <label> Title </label> : {this.state.board.title}
-// //                             </div>
-
-// //                             <div className = "row">
-// //                                 <label> Contents </label> : <br></br>
-// //                                 <textarea value={this.state.board.content} readOnly/> 
-// //                             </div >
-
-// //                             <div className = "row">
-// //                                 <label> UserId  </label>: 
-// //                                 {this.state.board.userId}
-// //                             </div>
-
-// //                             {this.returnDate(this.state.board.createdDate) }
-
-// //                             <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{marginLeft:"10px"}}>글 목록으로 이동</button>
-// //                     </div>
-// //                 </div>
-
-// //             </div>
-// //         );
-// //     }
-// // }
 
 
 export default ReadBoard;

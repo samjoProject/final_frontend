@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { deleteTodoAsync } from "../../redux/todoSlice";
 
+
 const Calendar = ({ id }) => {
   
   const [modalOpen, setModalOpen] = useState(false);
@@ -107,7 +108,7 @@ const Calendar = ({ id }) => {
           //   { title: "event2", date: "2022-03-14" },
           // ]}
         />
-
+        <br></br>
         <Button
           type="button"
           className="btn btn-primary"
