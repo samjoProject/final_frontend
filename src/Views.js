@@ -69,16 +69,52 @@ function Views() {
             </Header>
 
             <Layout>
-              <Sider width={200} className="site-layout-background">
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={["1"]}
-                  defaultOpenKeys={["sub1"]}
-                  style={{ height: "100%", borderRight: 0, backgroundColor: "black" }}
-                >
-                  {/* <InfoContainer/> */}
-                  <h1> 컨테이너 들어갈 자리 </h1>
-                </Menu>
+              <Sider width={300} className="site-layout-background">
+              <Layout style={{ padding: "24px 24px 24px" }}>
+            
+         
+            
+                <Content
+                  className="site-layout-background"
+                  style={{
+                    padding: 24,
+                    margin: 0,
+                    minHeight: 330,
+                  }}>
+                  <h3>김춘식</h3>
+                  <img src="../../images/choon.png" />
+                  {/* <div className="d-grid gap-2 col-6 mx-auto "> */}
+                  <div className="d-grid gap-2 d-md-flex justify-content-md-center">
+                  <button className="btn btn-success" > ON </button>
+                  
+                  <button className="btn btn-danger" > OFF </button>
+                  </div>
+            </Content>
+                
+                <Content
+                  className="site-layout-background"
+                  style={{
+                    padding: 24,
+                    margin: 0,
+                    minHeight: 330,
+                    marginTop:30,
+                  }}
+                />
+                <Content
+                  className="site-layout-background"
+                  style={{
+                    padding: 24,
+                    margin: 0,
+                    minHeight: 280,
+                    marginTop:30,
+                  }}
+                />
+                
+              {/* <div class="container-md">100% wide until medium breakpoint</div>
+              <div class="container-md">100% wide until medium breakpoint</div> */}
+                </Layout>
+                
+
               </Sider>
 
               <Layout style={{ padding: "24px 24px 24px" }}>

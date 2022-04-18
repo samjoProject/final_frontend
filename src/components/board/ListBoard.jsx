@@ -3,33 +3,32 @@ import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import BoardService from '../../service/BoardService';
+import './board.css';
 
 
 
 function ListBoard() {
-  
-      // const pageNum = 1;
-      // const {paging, setPaging} = {};
-      const [boards, setBoards] = useState([]);
-    
-    // this.createBoard = this.createBoard.bind(this); // createBoard함수 바인딩
 
-  
+  // const pageNum = 1;
+  // const {paging, setPaging} = {};
+  const [boards, setBoards] = useState([]);
+
+  // this.createBoard = this.createBoard.bind(this); // createBoard함수 바인딩
+
+
   // 글목록 
   useEffect(() => {
     BoardService.getBoards().then((res) => {
-      console.log('1',boards)
+      console.log('1', boards)
       // pageNum(res.data.pagingData.currentPageNum),
       // setPaging(res.data.pagingData),
       setBoards(res.data);
+      console.log(res.data);
 
-  })
-},[])
+    })
+  }, [])
 
-  // 글쓰기 버튼 클릭 -> 클쓰기
-  // const createBoard = () => {
-  //   window.location.href = "/create-board/"
-  // }
+  // 글쓰기 버튼 클릭 
   const createBoard = () => {
     window.location.href = "/create-board/create"
   }
@@ -74,52 +73,49 @@ function ListBoard() {
   //   }
   // }
 
-  
-    return (
-      <div>
-        <h2 className="text-center">Boards List</h2>
-        
 
-        <div className="row">
-          <table className="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th>글 번호</th>
-                <th>카테고리 </th>
-                <th>타이틀 </th>
-                <th>작성자 </th>
-                <th>작성일 </th>
+  return (
+    <div>
+      <h2 className="text-center">Boards List</h2>
 
-                {/* <th>조회수</th> */}
-              </tr>
-            </thead>
-            <tbody>
-              {
-                boards.map(
-                  
-                  board =>
-                    <tr key={board.id}>
-                      <td> {board.id} </td>
-                      <td> {board.category} </td>
-                      <td> <a onClick={() => readBoard(board.id)}>{board.title} </a></td>
-                      <td> {board.userId} </td>
-                      <td> {board.regDate} </td>
-                      {/* <td> {board.updatedTime} </td> */}
-                      {/* <td> {board.likes} </td> */}
-                      {/* <td> {board.counts} </td> */}
-                      
-                    </tr>
-                )
-              }
-            </tbody>
-          </table>
-          <div className="row">
-            <button className="btn btn-primary" onClick={createBoard}> 글쓰기 </button>
-          </div>
+
+      <div className="row">
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>글 번호</th>
+              <th>카테고리 </th>
+              <th>타이틀 </th>
+              <th>작성자 </th>
+              <th>작성일 </th>
+              <th>조회수</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {
+              boards.map(
+
+                board =>
+                  <tr key={board.id}>
+                    <td> {board.id} </td>
+                    <td> {board.category} </td>
+                    <td> <a onClick={() => readBoard(board.id)}>{board.title} </a></td>
+                    <td> {board.userId} </td>
+                    <td> {board.regDate} </td>
+                    <td> {board.counts} </td>
+                  </tr>
+              )
+            }
+          </tbody>
+        </table>
+        <div className="d-grid gap-2 d-ld-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-lg" onClick={createBoard}> 글쓰기</button>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
 
 

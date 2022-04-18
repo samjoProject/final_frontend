@@ -19,7 +19,7 @@ class BoardService {
     
   }
 
-  getOneBoard(id) {
+  getOneBoard(id,counts) {
     console.log('3. 상세보기페이지로 이동')
     return axios.get("http://localhost:8080/api/post" + "/" + id);
   } 
