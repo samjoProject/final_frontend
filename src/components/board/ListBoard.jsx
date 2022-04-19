@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import BoardService from '../../service/BoardService';
+import './board.css';
 
 
 
@@ -77,12 +78,14 @@ function ListBoard() {
     <div>
       <h2 className="text-center">자료실</h2>
 
+      
+      
+        <table class="table table-hover">
+          {/* <table className="table table-striped table-bordered"> */}
 
-      <div className="row">
-        <table className="table table-striped table-bordered">
           <thead>
             <tr>
-              <th>글 번호</th>
+              <th>no</th>
               <th>카테고리 </th>
               <th>타이틀 </th>
               <th>작성자 </th>
@@ -108,11 +111,24 @@ function ListBoard() {
             }
           </tbody>
         </table>
-        <div className="d-grid gap-2 d-ld-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary btn-lg" onClick={createBoard}> 글쓰기</button>
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" class="btn btn-primary btn" onClick={createBoard}> ✏️ 글쓰기</button>
         </div>
+        <div class="center">
+          <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a href="#">1</a>
+            <a href="#" class="active">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">&raquo;</a>
+          </div>  
+        </div>
+        
       </div>
-    </div>
+    
   );
 }
 

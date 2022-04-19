@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+import { useState, useRef } from 'react';
+import Avatar from 'react-avatar';
 import CreateBoard from "./components/board/CreateBoard";
 import ListBoard from "./components/board/ListBoard";
 import ReadBoard from "./components/board/ReadBoard";
@@ -32,18 +34,45 @@ const { TabPane } = Tabs;
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
+
+
+
 function callback(key) {
 
 }
 
 function Views() {
+
+  // const [Image, setImage] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+  // const fileInput = useRef(null)
+  // const [File, setFile] = useState();
+
+  // const onChange = (e) => {
+  //   if(e.target.files[0]){
+  //             setFile(e.target.files[0])
+  //         }else{ //업로드 취소할 시
+  //             setImage("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+  //             return
+  //         }
+  //   //화면에 프로필 사진 표시
+  //         const reader = new FileReader();
+  //         reader.onload = () => {
+  //             if(reader.readyState === 2){
+  //                 setImage(reader.result)
+  //             }
+  //         }
+  //         reader.readAsDataURL(e.target.files[0])
+  //     }
+
+
+
   if (localStorage.getItem("status") != null) {
     return (
       <BrowserRouter>
         <div className="MainPage">
           <Layout >
             <Header className="header">
-              <img className="logo" src="../../images/logo.png" />
+              <img className="logo" src="../../images/logo4.png" />
 
               <Menu mode="horizontal" defaultSelectedKeys={["2"]}>
                 <Menu.Item key="1">
@@ -70,50 +99,78 @@ function Views() {
 
             <Layout>
               <Sider width={300} className="site-layout-background">
-              <Layout style={{ padding: "24px 24px 24px" }}>
-            
-         
-            
-                <Content
-                  className="site-layout-background"
-                  style={{
-                    padding: 24,
-                    margin: 0,
-                    minHeight: 330,
-                  }}>
-                  <h3 className="text-center">김춘식</h3>
-                  <img src="../../images/choon.png" />
-                  <div className="d-grid gap-2 d-md-flex justify-content-md-center">
-                  <button className="btn btn-success" > ON </button>
-                  
-                  <button className="btn btn-danger" > OFF </button>
-                  </div>
-            </Content>
-                
-                <Content
-                  className="site-layout-background"
-                  style={{
-                    padding: 24,
-                    margin: 0,
-                    minHeight: 330,
-                    marginTop:30,
-                  }}>
-                  <h3 className="text-center">📍 To Do </h3>
+                <Layout style={{ padding: "24px 24px 24px" }}>
+                  <Content
+                    className="site-layout-background"
+                    style={{
+                      padding: 24,
+                      margin: 0,
+                      minHeight: 330,
+                    }}>
+
+                    <h5 className="text-center">김춘식님</h5>
+                    <div class="profile-img">
+                      <img src="../../images/choon.png" alt="Avatar" class="avatar"></img>
+                    </div>
+                    {/* <img src="../../images/choon.png" /> */}
+                    {/* <Avatar
+                      src={Image}
+                      style={{ margin: '20px' }}
+                      size={200}
+                      onClick={() => { fileInput.current.click() }} />
+                    <input
+                      type='file'
+                      style={{ display: 'none' }}
+                      // accept='image/jpg,impge/png,image/jpeg'
+                      accept='jpg,png,jpeg'
+                      name='profile_img'
+                      onChange={onChange}
+                      ref={fileInput} /> */}
+                    <Content class='profile-btn'>
+                      <div className="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <button className="btn btn-success" > ON </button>
+                        <button className="btn btn-danger" > OFF </button>
+                      </div>
+                    </Content>
                   </Content>
-                <Content
-                  className="site-layout-background"
-                  style={{
-                    padding: 24,
-                    margin: 0,
-                    minHeight: 280,
-                    marginTop:30,
-                  }}
-                />
-                
-              {/* <div class="container-md">100% wide until medium breakpoint</div>
+
+                  <Content
+                    className="site-layout-background"
+                    style={{
+                      padding: 24,
+                      margin: 0,
+                      minHeight: 330,
+                      marginTop: 30,
+                    }}>
+                    <h3 className="text-center">📍 To Do 📍</h3>
+                    <hr></hr>
+                    <label class="container">게시판기능구현
+                      <input type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">포트폴리오제출
+                      <input type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">리액트 복습
+                      <input type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+                  </Content>
+                  <Content
+                    className="site-layout-background"
+                    style={{
+                      padding: 24,
+                      margin: 0,
+                      minHeight: 280,
+                      marginTop: 30,
+                    }}
+                  />
+
+                  {/* <div class="container-md">100% wide until medium breakpoint</div>
               <div class="container-md">100% wide until medium breakpoint</div> */}
                 </Layout>
-                
+
 
               </Sider>
 

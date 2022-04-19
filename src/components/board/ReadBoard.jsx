@@ -72,29 +72,38 @@ function ReadBoard() {
     return (
         <>
             <div className="card col-ld-6 offset-ld-3">
-                <h3 className="text-center"> Read Detail</h3>
+                
                 <div className="card-body">
 
 
                     <div className="row">
-                        <label> Category </label> : {data.category} 
+                        <label> {data.category}</label>
+                    </div>
+
+                    <br></br>
+                    <div>
+                    <div className="row">
+                        <h3>{data.title}</h3> 
+                        <hr></hr>
+                    </div>
+                    
+                    <div class="userId">
+                        <label> 작성자 | {data.userId} </label> 
+                    </div>
+                    <div class="date">
+                       조회수 {(data.counts)}  |   {(data.regDate)}
+                    </div>
+                    </div>
+                    
+                    
+                    <div className="content">
+                        <h5>{data.content}</h5>
                     </div>
 
                     <br></br>
                     <div className="row">
-                        <label> 제목 </label> : {data.title}
-                    </div>
-
-                    <br></br>
-                    <div className="row">
-                        <label> 내용 </label>  <br></br>
-                        <textarea value={data.content} readOnly />
-                    </div >
-
-                    <br></br>
-                    <div className="row">
-                        <label> 첨부파일 </label>  
-                        
+                        {/* <label>🗂 첨부파일 </label>   */}
+                        <span class="label-file">🗂 첨부파일</span>
                         <a href={fileId} value="다운로드">
                             {fileName.substring(10)}
                         </a>
@@ -102,12 +111,8 @@ function ReadBoard() {
                     </div >
 
                     <br></br>
-                    <div className="row">
-                        <label> 작성자  </label>: {data.userId}
-                    </div>
-                    <div className="row">
-                        {(data.regDate)}
-                    </div>
+                    
+                    
                     <button className="btn btn-primary" onClick={onClickList} style={{ marginLeft: "10px" }}>글 목록</button>
                     <button className="btn btn-primary" onClick={onClickUpdate} style={{ marginLeft: "20px" }}>수정하기</button>
                     <button className="btn btn-danger" onClick={() => onClickDelete()} style={{ marginLeft: "20px" }}>삭제</button>
