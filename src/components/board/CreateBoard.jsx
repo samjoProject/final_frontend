@@ -7,6 +7,7 @@ import BoardService from '../../service/BoardService';
 import '../../App.css';
 import AWS from 'aws-sdk';
 import { Row, Col, Button, Input, Alert } from 'reactstrap';
+import './board.css';
 
 function CreateBoard() {
 
@@ -201,18 +202,21 @@ function CreateBoard() {
 
     return (
         <div>
-            <h2>CreateBoard</h2>
+            <h2 className="create-board">게시글 작성</h2>
 
             <form>
+            <div className="card-body">
+            <div class="form-group">
                 <label> Category </label>
-                <select placeholder="category" name="category" className="form-control"
-                    value={category} onChange={changeCategoryHandler}>
+                <select placeholder="category" name="category" className="form-select"
+                    value={category} onChange={changeCategoryHandler} >
 
                     <option value="">카테고리를 선택해주세요.</option>
                     <option value="강의자료">강의자료</option>
                     <option value="공지사항">공지사항</option>
                 </select>
-                <div className="card-body">
+                </div>
+                
                     <div className="form-group">
                         <label> Title </label>
                         <input type="text" placeholder="title" name="title" className="form-control"
@@ -236,10 +240,11 @@ function CreateBoard() {
                     ) : null}
                 </div>
             </form>
-            {/* <S3Upload />     */}
+            <div class="d-grid gap-2 d-md-flex">
             <button className="btn btn-success" onClick={onClickPost}>Save</button>
             {/* <button className="btn btn-success" onClick={getTitle}>Save</button> */}
             <button className="btn btn-danger" onClick={onClickCancel}>Cancel</button>
+            </div>
         </div >
 
     )
