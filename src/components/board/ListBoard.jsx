@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import BoardService from '../../service/BoardService';
-import './board.css';
 
 
 
@@ -76,7 +75,7 @@ function ListBoard() {
 
   return (
     <div>
-      <h2 className="text-center">Boards List</h2>
+      <h2 className="text-center">자료실</h2>
 
 
       <div className="row">
