@@ -81,9 +81,8 @@ function Views() {
                     margin: 0,
                     minHeight: 330,
                   }}>
-                  <h3>김춘식</h3>
+                  <h3 className="text-center">김춘식</h3>
                   <img src="../../images/choon.png" />
-                  {/* <div className="d-grid gap-2 col-6 mx-auto "> */}
                   <div className="d-grid gap-2 d-md-flex justify-content-md-center">
                   <button className="btn btn-success" > ON </button>
                   
@@ -98,8 +97,9 @@ function Views() {
                     margin: 0,
                     minHeight: 330,
                     marginTop:30,
-                  }}
-                />
+                  }}>
+                  <h3 className="text-center">📍 To Do </h3>
+                  </Content>
                 <Content
                   className="site-layout-background"
                   style={{
