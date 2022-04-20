@@ -240,10 +240,10 @@ function CreateBoard() {
                     ) : null}
                 </div>
             </form>
-            <div class="d-grid gap-2 d-md-flex">
-            <button className="btn btn-success" onClick={onClickPost}>Save</button>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <button className="btn btn-primary" onClick={onClickPost}>등록하기</button>
             {/* <button className="btn btn-success" onClick={getTitle}>Save</button> */}
-            <button className="btn btn-danger" onClick={onClickCancel}>Cancel</button>
+            <button className="btn btn-danger" onClick={onClickCancel}>작성취소</button>
             </div>
         </div >
 
