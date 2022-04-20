@@ -51,7 +51,10 @@
   border-color: darkgray;
   
 }
-
+.logout-btn {
+  position: absolute;
+  right:3%
+}
 .profile-btn {
   position: absolute;
   left:50%;
