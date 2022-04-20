@@ -34,7 +34,7 @@ const { TabPane } = Tabs;
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-
+const userName = localStorage.getItem("userName");
 
 
 function callback(key) {
@@ -74,7 +74,7 @@ function Views() {
             <Header className="header">
               <img className="logo" src="../../images/logo4.png" />
 
-              <Menu mode="horizontal" defaultSelectedKeys={["2"]}>
+              <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
                   <Link to="/calendar">홈</Link>
                 </Menu.Item>
@@ -108,7 +108,7 @@ function Views() {
                       minHeight: 330,
                     }}>
 
-                    <h5 className="text-center">김춘식님</h5>
+                    <h5 className="text-center">{userName}님</h5>
                     <div class="profile-img">
                       <img src="../../images/choon.png" alt="Avatar" class="avatar"></img>
                     </div>

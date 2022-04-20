@@ -55,6 +55,7 @@ const AuthSignIn = () => {
         localStorage.setItem("userPers", res.data.userPers);
         localStorage.setItem("status", true);
         localStorage.setItem("className", res.data.className);
+        localStorage.setItem("userName", res.data.userName);
         window.location='http://localhost:3000/mainpage'
       }
     }).catch((err) =>
