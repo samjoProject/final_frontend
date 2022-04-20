@@ -90,10 +90,10 @@ function Views() {
                 <Menu.Item key="4">
                   <Link to="/managerpage">관리자</Link>
                 </Menu.Item>
-                {/* 
-              <span className="logout">
-                <a href="localhost:3000/logout">로그아웃</a>
-              </span> */}
+                
+              <span className="logout-btn">
+                <a href="localhost:3000/">로그아웃</a>
+              </span>
               </Menu>
             </Header>
 
