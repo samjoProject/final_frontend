@@ -7,10 +7,11 @@ function CheckSignUpType() {
 
     return (
         <div className='TitleScreen'>
-            <div className='signUpTitle'>방식 선택</div>
+            <div><img className="logoImg" src="images/logo4.png"></img></div>
+            <div className='signUpTitle'>SNS계정으로 빠른가입</div>
             <div className='OAuthLogo'><a href={kakao_auth_uri}> <img src="images/kakao_signup.png"></img></a></div>
-            <div className='OAuthLogo'>네이버</div>
-            <div className='OAuthLogo'>구글</div>
+            <div className='OAuthLogo'><img className="naver-logo" src="images/naver.png" /></div>
+
         </div>
     )
 }

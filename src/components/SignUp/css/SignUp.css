@@ -1,11 +1,24 @@
+body {
+    background-color: rgba(230, 237, 209, 0.755);
+
+
+}
+
+.logoImg {
+    width: 55%;
+    margin-bottom: -60px;
+}
+
 .TitleScreen{
     width: 400px;
-    height: 450px;
+    height: 500px;
     background-color: white;
-    border: rgb(168, 168, 168) solid 2px;
+    /* border: rgb(168, 168, 168) solid 1px; */
     text-align: center;
     border-radius: 12px;
-    margin: 2% 50% 0% 40%;
+    margin: 10% 50% 0% 38%;
+
+
 }
 
 .TitleLogo{
@@ -16,19 +29,23 @@
 }
 
 .OAuthLogo{
-    margin: 50px 0px 0px 0px;
+    margin: 30px 0px 0px 0px;
     height: 50px;
+}
+
+.naver-logo {
+    height:48px;
 }
 
 .toSignUp{
     margin: 80px 0px 0px 0px;
-    font-size: 24.3px;
-    font-style: oblique;
+    font-size: 21.3px;
+    /* font-style: oblique; */
     font-weight: bold;
 }
 
 .signUpTitle{
-    font-size: 20px;
+    font-size: 18px;
     padding: 20px 0px;
 }
 
@@ -56,11 +73,13 @@
 
 /*다음 페이지로 이동*/
 .toTheNextPage {
+    transition-duration: 0.4s;
     width: 200px;
     height: 80px;
-    background-color: #1ebdc3;
-    border: none;
-    color: #fff;
+    background-color: rgb(63, 194, 220); 
+    border: 3px solid rgb(63, 194, 220);
+    color: white; 
+    border-radius: 12px;
     padding: 15px 0;
     text-align: center;
     text-decoration: none;
@@ -70,6 +89,11 @@
     cursor: pointer;
     align-items: center;
     justify-content: center;
+} 
+
+.toTheNextPage:hover {
+    background-color: white; /* Green */
+    color:black;
 }
 
 .FindInsSection{
@@ -93,6 +117,7 @@
     margin: 2% 50% 0% 40%;
     padding: 0.5% 0% 1% 0%;
     border-radius: 12px;
+    background-color: white;
 }
 
 .signUpTableContent{
@@ -102,12 +127,13 @@
 }
 
 .pI{
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .inputData{
     width: 230px;
-    height: 30px;
+    height: 35px;
     border: 1px solid rgb(0, 209, 212);
     border-color: rgb(0, 209, 212);
     padding: 2px 0px;
@@ -117,7 +143,7 @@
 
 .inputDataSP{
     width: 180px;
-    height: 30px;
+    height: 35px;
     border: 1px solid rgb(0, 209, 212);
     border-color: rgb(0, 209, 212);
     padding: 2px 0px;
@@ -128,10 +154,10 @@
 /*이미 입력되어있는 데이터 출력 창 크기 조절*/
 .inputDataAlready{
     width: 230px;
-    height: 30px;
+    height: 35px;
     text-align: center;
     background-color: rgb(197, 197, 197);
-    border-color: black;
+    border-color: darkgray;
     padding: 1px 0px;
     font-size: 18px;
     font-style: oblique;
@@ -148,7 +174,7 @@
     display: inline-block;
     font-size: 15px;
     border-radius: 12px;
-    margin: 0% 50% 0% 40%;
+    margin: 0.5% 50% 0% 40%;
 }
 
 .checkInsButton{

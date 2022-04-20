@@ -1,3 +1,7 @@
+.form-group{
+  margin-bottom: 20px;
+}
+
 .create-board {
     text-align: left;
     color: grey;
@@ -49,3 +53,6 @@
     padding: 8px;
   }
  
+.ListBoard-tbody {
+  line-height: 30px;
+}
