@@ -8,7 +8,7 @@ import qs from "qs";
 
 const AuthSignIn = () => {
   const code = new URL(window.location.href).searchParams.get("code");
-  const REDIRECT_URI = "http://localhost:3000/authsignin";
+  const REDIRECT_URI = "http://nanuri-client.s3-website-us-east-1.amazonaws.com/authsignin";
   const REST_API_KEY = "2f24e2a9b9b8cf99534a84ef99af7f87";
 
   const getToken = async () => {
@@ -32,14 +32,14 @@ const AuthSignIn = () => {
       let data = await window.Kakao.API.request({
         url: "/v2/user/me",
       });
-      localStorage.setItem("email", data.kakao_account.email);
+      localStorage.setItem("userEmail", data.kakao_account.email);
     } catch (err) {
       console.log(err);
     }
 
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem("userEmail");
     await axios({
-      url: `http://localhost:8080/checkDBSignIn`,
+      url: `http://44.194.225.221:8080/checkDBSignIn`,
       method: 'get',
       params: {
         email: email
@@ -49,14 +49,14 @@ const AuthSignIn = () => {
       if (res.data.code === 201) {
         alert(res.data.msg);
         localStorage.clear();
-        window.location='http://localhost:3000/checksignuptype'
+        window.location='/checksignuptype'
       }else if(res.data.code === 200){
         alert(res.data.msg);
         localStorage.setItem("userPers", res.data.userPers);
         localStorage.setItem("status", true);
         localStorage.setItem("className", res.data.className);
-        localStorage.setItem("userName", res.data.userName);
-        window.location='http://localhost:3000/mainpage'
+        localStorage.setItem("userName", res.data.userName);        
+        window.location='/mainpage'
       }
     }).catch((err) =>
       console.log(err));

@@ -8,7 +8,7 @@ function SignUpStudent() {
         <form onSubmit={(e)=>{
             e.preventDefault();
             const inputData = qs.stringify({
-                userEmail: localStorage.getItem("email"),
+                userEmail: localStorage.getItem("userEmail"),
                 userName: document.querySelector('[name=userName]').value,
                 userBirth: document.querySelector('[name=birthyear').value + localStorage.getItem("birthday"),
                 userAge: document.querySelector('[name=userAge]').value,
@@ -20,7 +20,7 @@ function SignUpStudent() {
                 accountNum: document.querySelector('[name=accountNum').value
             })
             axios({
-                url:'http://localhost:8080/signupstudent',
+                url:'http://44.194.225.221:8080/signupstudent',
                 method:'post',
                 data: inputData
             }).then((res)=>{
@@ -35,7 +35,7 @@ function SignUpStudent() {
                 <div className="signUpTableContent">
                     <label id="userEmail" className="pI">ID(email)</label>
                     <div>
-                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("email")} readOnly />
+                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("userEmail")} readOnly />
                     </div>
                 </div>
 

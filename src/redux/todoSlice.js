@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getTodosAsync = createAsyncThunk(
   "todos/getTodosAsync",
   async () => {
-    const resp = await fetch('http://localhost:8080/api/calendar');
+    const resp = await fetch('http://44.194.225.221:8080/api/calendar');
     if (resp.ok) {
       const todos = await resp.json();
       return { todos };
@@ -15,7 +15,7 @@ export const getTodosAsync = createAsyncThunk(
 export const addTodoAsync = createAsyncThunk(
   "todos/addTodoAsync",
   async (payload) => {
-    const resp = await fetch('http://localhost:8080/api/calendar', {
+    const resp = await fetch('http://44.194.225.221:8080/api/calendar', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const addTodoAsync = createAsyncThunk(
 export const deleteTodoAsync = createAsyncThunk(
     "todos/deleteTodoAsync",
     async (payload) => {
-      const resp = await fetch(`http://localhost:8080/api/calendar`, {
+      const resp = await fetch(`http://44.194.225.221:8080/api/calendar`, {
         method: "DELETE",
         // data: payload
         headers: {

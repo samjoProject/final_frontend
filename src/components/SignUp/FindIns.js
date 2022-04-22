@@ -13,9 +13,9 @@ function FindIns() {
     const movePage = (e)=>{
         if(localStorage.getItem("CN")!=null){
             if(x=="1"){
-                window.location.href = 'http://localhost:3000/signupstudent'
+                window.location.href = '/signupstudent'
             }else if(x=="2"){
-                window.location.href = 'http://localhost:3000/signupteacher'
+                window.location.href = '/signupteacher'
             }else{
                 alert("선택해주세요") //수정 필요?
             }
@@ -31,7 +31,7 @@ function FindIns() {
                     value="수강 과정 검색"
                     className="searchButton"
                     onClick={(e) => {
-                        window.open('http://localhost:3000/findclass', '팝업', 'width=700, height=800, status=0,scrollbars= 0, toolbar=0, menubar=no');
+                        window.open('/findclass', '팝업', 'width=700, height=800, status=0,scrollbars= 0, toolbar=0, menubar=no');
                     }}
                 >수강 과정 검색</button>
             </div>

@@ -92,7 +92,7 @@ function Views() {
                 </Menu.Item>
                 
               <span className="logout-btn">
-                <a href="localhost:3000/">로그아웃</a>
+                <a href="javascript:void(0);" onClick={(e)=>Logout()}>로그아웃</a>
               </span>
               </Menu>
             </Header>
@@ -224,6 +224,12 @@ function Views() {
       </BrowserRouter>
     )
   }
+}
+
+function Logout(){
+  localStorage.clear();
+  alert("로그아웃 되었습니다.");
+  window.location.href="/home";
 }
 
 export default Views;

@@ -16,9 +16,8 @@ function CreateBoard() {
     const [category, setCategory] = useState('')
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [userId, setUserId] = useState('');
     const [fileId, setFileId] = useState('');
-
+    const userId = localStorage.getItem("userEmail");
     //파일선택
     const [progress, setProgress] = useState(0);
     const [selectedFile, setSelectedFile] = useState('');
@@ -68,10 +67,6 @@ function CreateBoard() {
 
     const changeContentHandler = (e) => {
         setContent(e.currentTarget.value);
-    }
-
-    const changeUserIdHandler = (e) => {
-        setUserId(e.currentTarget.value);
     }
 
     const uploadFile = (file) => {
@@ -230,7 +225,7 @@ function CreateBoard() {
                     <div className="form-group">
                         <label> userId  </label>
                         <input placeholder="userId" name="userId" className="form-control"
-                            value={userId} onChange={changeUserIdHandler} />
+                            value={userId} readOnly />
                     </div>
                     {/* <input type="file" id="file" onChange={changeFileHandler} multiple="multiple" /> */}
                     <Input color="primary" type="file" onChange={handleFileInput} />

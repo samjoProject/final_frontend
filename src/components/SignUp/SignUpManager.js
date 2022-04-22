@@ -9,7 +9,7 @@ function SignUpManager() {
         <form onSubmit={(e) => {
             e.preventDefault();
             const inputData = qs.stringify({
-                userEmail: localStorage.getItem("email"),
+                userEmail: localStorage.getItem("userEmail"),
                 userName: document.querySelector('[name=userName]').value,
                 userBirth: document.querySelector('[name=birthyear').value + localStorage.getItem("birthday"),
                 userAge: document.querySelector('[name = userAge]').value,
@@ -17,7 +17,7 @@ function SignUpManager() {
                 className: localStorage.getItem("CN")
             })
             axios({
-                url: 'http://localhost:8080/signupmanager',
+                url: 'http://44.194.225.221:8080/signupmanager',
                 method: 'post',
                 data: inputData
             }).then((res) => {
@@ -32,7 +32,7 @@ function SignUpManager() {
                 <div className="signUpTableContent">
                     <label id="userEmail" className="pI">ID(email)</label>
                     <div>
-                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("email")} readOnly />
+                        <input type="text" id="userEmail" className="inputDataAlready" value={localStorage.getItem("userEmail")} readOnly />
                     </div>
                 </div>
 

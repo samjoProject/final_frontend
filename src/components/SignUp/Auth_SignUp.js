@@ -8,7 +8,7 @@ import qs from "qs";
 
 const AuthSignUp = () => {
   const code = new URL(window.location.href).searchParams.get("code");
-  const REDIRECT_URI = "http://localhost:3000/authsignup";
+  const REDIRECT_URI = "http://nanuri-client.s3-website-us-east-1.amazonaws.com/authsignup";
   const REST_API_KEY = "2f24e2a9b9b8cf99534a84ef99af7f87";
 
   var getToken = async () => {
@@ -33,15 +33,15 @@ const AuthSignUp = () => {
       let data = await window.Kakao.API.request({
         url: "/v2/user/me",
       });
-      localStorage.setItem("email", data.kakao_account.email);
+      localStorage.setItem("userEmail", data.kakao_account.email);
       localStorage.setItem("birthday", data.kakao_account.birthday);
     } catch (err) {
       console.log(err);
     }
 
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem("userEmail");
     await axios({
-      url: `http://localhost:8080/checkDB`,
+      url: `http://44.194.225.221:8080/checkDB`,
       method: 'get',
       params: {
         userEmail: email
@@ -50,10 +50,10 @@ const AuthSignUp = () => {
       if (res.data.code === 201) {
         alert(res.data.msg);
         localStorage.clear();
-        window.location='http://localhost:3000/home'
+        window.location='/home'
       }else if(res.data.code === 200){
         alert(res.data.msg);
-        window.location='http://localhost:3000/selecttype'
+        window.location='/selecttype'
       }
     }).catch((err) =>
       console.log(err));

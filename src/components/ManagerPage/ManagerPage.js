@@ -33,7 +33,7 @@ function ManagerPage() {
     useEffect(async () => {
         try {
             await axios({
-                url: 'http://localhost:8080/getClassMember',
+                url: 'http://44.194.225.221:8080/getClassMember',
                 method: 'post',
                 params: {
                     className: className
@@ -116,7 +116,7 @@ function ManagerPage() {
                                     rowData.userPers === "0" ?
                                         <td value={rowData.id}>
                                             <button
-                                                id="target_btn_teacher"
+                                                id={rowData.userEmail}
                                                 className="decideButton"
                                                 value="승인"
                                                 onClick={(e) => GivePersTeacher(rowData.userEmail)
@@ -201,7 +201,7 @@ function ManagerPage() {
     } else {
         return (
             <div>
-                권 한 안 됨!!!!!
+                접근 권한이 없습니다.
             </div>
         )
     }
