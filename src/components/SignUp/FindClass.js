@@ -15,7 +15,7 @@ function FindClass() {
 
     useEffect(async () => {
         try {
-            const res = await axios.get('http://localhost:8080/findclass')
+            const res = await axios.get('http://44.194.225.221:8080/findclass')
             console.log(res.data);
             const _inputData = await res.data.map((rowData) => (
                 setLastIdx(lastIdx + 1),

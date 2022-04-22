@@ -3,7 +3,7 @@
 import './/css/SignUp.css';
 
 function CheckSignUpType() {
-    const kakao_auth_uri = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=2f24e2a9b9b8cf99534a84ef99af7f87&redirect_uri=http://localhost:3000/authsignup`
+    const kakao_auth_uri = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=2f24e2a9b9b8cf99534a84ef99af7f87&redirect_uri=http://nanuri-client.s3-website-us-east-1.amazonaws.com/authsignup`
 
     return (
         <div className='TitleScreen'>

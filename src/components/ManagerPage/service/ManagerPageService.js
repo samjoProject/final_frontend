@@ -2,21 +2,21 @@ import axios from "axios";
 
 function GivePersTeacher(userEmailInput) {
     axios({
-        url: 'http://localhost:8080/givePersTeacher',
+        url: 'http://44.194.225.221:8080/givePersTeacher',
         method: 'post',
         params: {
             userEmail: userEmailInput
         }
     }).then((res) => {
         console.log(res.data);
-        btnDisabledTeacher();
+        btnDisabledTeacher(userEmailInput);
     }).catch(function (error) {
         console.log(error.response.data);
     })
 }
 function DeleteTeacher(userEmailInput){
     axios({
-        url: 'http://localhost:8080/deleteTeacher',
+        url: 'http://44.194.225.221:8080/deleteTeacher',
         method: 'post',
         params:{
             userEmail : userEmailInput
@@ -30,7 +30,7 @@ function DeleteTeacher(userEmailInput){
 }
 function GivePersStudent(userEmailInput) {
     axios({
-        url: 'http://localhost:8080/givePersStudent',
+        url: 'http://44.194.225.221:8080/givePersStudent',
         method: 'post',
         params: {
             userEmail: userEmailInput
@@ -44,7 +44,7 @@ function GivePersStudent(userEmailInput) {
 }
 function DeleteStudent(userEmailInput){
     axios({
-        url: 'http://localhost:8080/deleteStudent',
+        url: 'http://44.194.225.221:8080/deleteStudent',
         method: 'post',
         params:{
             userEmail : userEmailInput
@@ -58,8 +58,8 @@ function DeleteStudent(userEmailInput){
 }
 
 
-function btnDisabledTeacher() {
-    const target = document.getElementById('target_btn_teacher');
+function btnDisabledTeacher(ID) {
+    const target = document.getElementById(ID);
     target.disabled = true;
 }
 function btnDisabledStudent(ID) {

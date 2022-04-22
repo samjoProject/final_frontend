@@ -24,7 +24,7 @@ const Calendar = ({ id }) => {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:8080/api/calendar",
+      url: "http://44.194.225.221:8080/api/calendar",
       method: "get",
     })
       .then((res) => {
@@ -32,7 +32,7 @@ const Calendar = ({ id }) => {
         console.log("1. useeffect: ", res.data)
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data);
       });
   }, []);
 

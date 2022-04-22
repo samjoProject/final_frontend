@@ -15,8 +15,8 @@ function ReadBoard() {
     //     console.log('2. useEfect => ', { id })
     //     axios({
     //         method: "GET",
-    //         url: 'http://localhost:8080/api/post' + '/' + id,
-    //         // url: "http://localhost:8080/api/post/1"
+    //         url: 'http://44.194.225.221:8080/api/post' + '/' + id,
+    //         // url: "http://44.194.225.221:8080/api/post/1"
     //     }).then((res) => {
     //         setData(res.data);
     //         console.log('3. res => ',res);

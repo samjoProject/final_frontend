@@ -12,16 +12,16 @@ function CheckIns() {
                 className: document.querySelector('[name= className]').value
             })
             axios({
-                url: 'http://localhost:8080/saveins',
+                url: 'http://44.194.225.221:8080/saveins',
                 method: 'post',
                 data: submitData
             }).then((res) => {
                 alert(res.data.msg);
                 if (res.data.code === 100) {
-                    window.location = 'http://localhost:3000/home';
+                    window.location.href = "/home";
                 } else if (res.data.code === 200) {
                     localStorage.setItem("CN", document.querySelector('[name=className]').value);
-                    window.location = 'http://localhost:3000/signupmanager';
+                    window.location.href = "/signupmanager";
                 }
             }).catch(function (error) {
                 console.log(error);
@@ -48,7 +48,7 @@ function CheckIns() {
                                     businessNum: document.querySelector('[name=businessNum]').value
                                 })
                                 axios({
-                                    url: 'http://localhost:8080/checkins',
+                                    url: 'http://44.194.225.221:8080/checkins',
                                     method: 'post',
                                     data: inputData
                                 }).then((res) => {

@@ -10,7 +10,7 @@ function SelectType() {
                     value="학생 / 강사"
                     className="toTheNextPage"
                     onClick={(e) => {
-                        window.location.href = 'http://localhost:3000/findins'
+                        window.location.href = '/findins'
                     }}
                 ></input>
 
@@ -19,7 +19,7 @@ function SelectType() {
                     value="매니저"
                     className="toTheNextPage"
                     onClick={(e) => {
-                        window.location.href = 'http://localhost:3000/checkins'
+                        window.location.href = '/checkins'
                     }}
                 ></input>
         </div>
