@@ -15,7 +15,7 @@ import { deleteTodoAsync } from "../../redux/todoSlice";
 
 
 const Calendar = ({ id }) => {
-  
+  const userPers = localStorage.getItem("userPers");
   const [modalOpen, setModalOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -72,56 +72,71 @@ const Calendar = ({ id }) => {
     locale: "ko",
   });
 
-  return (
-    <div>
-      <Container>
-        <FullCalendar
-          headerToolbar={{
-            left: "today",
-            center: "title",
-            right: "prev,next",
-          }}
-          plugins={[interactionPlugin, dayGridPlugin]}
-          defaultView="dayGridMonth"
-          // dateClick={this.handleDateClick}
-          weekends={true}
-          // navLinks={true} // 달력 날짜 클릭할 수 있게 해줌, 기본값 falase라 설정해줘야함. 날짜 클릭시 그날로 이동
-          // droppable={true}
-          selectable={true} // 달력에서 드래그로 날짜 선택
-          selectMirror={true}
-          // editable={true} // 달력 내에서 일정 옮기고 수정
+  if (userPers == "0") {
+    return (<div>접근 권한이 없습니다. 
+      관계자에게 문의해주세요.</div>)
+  } else {
 
-          locale="ko" //  한국어 설정
-          // dateClick={handleDateClick} // 요일클릭 이벤트
-          // dateClick={function () {
-          //   alert("요일 클릭");
-          // }} // 요일클릭 이벤트
-          // eventClick={
-          //  console.log("이벤트 클릭")
-          // } // 일정 클릭 이벤트
+    return (
+      <div>
+        <Container>
+          <FullCalendar
+            headerToolbar={{
+              left: "today",
+              center: "title",
+              right: "prev,next",
+            }}
+            plugins={[interactionPlugin, dayGridPlugin]}
+            defaultView="dayGridMonth"
+            // dateClick={this.handleDateClick}
+            weekends={true}
+            // navLinks={true} // 달력 날짜 클릭할 수 있게 해줌, 기본값 falase라 설정해줘야함. 날짜 클릭시 그날로 이동
+            // droppable={true}
+            selectable={true} // 달력에서 드래그로 날짜 선택
+            selectMirror={true}
+            // editable={true} // 달력 내에서 일정 옮기고 수정
 
-          events={schedule_list}
-          // eventClick={() => handleDeleteClick(schedule_list)} // 일정 클릭 이벤트
-          eventClick={handleDeleteClick} // 일정 클릭 이벤트
+            locale="ko" //  한국어 설정
+            // dateClick={handleDateClick} // 요일클릭 이벤트
+            // dateClick={function () {
+            //   alert("요일 클릭");
+            // }} // 요일클릭 이벤트
+            // eventClick={
+            //  console.log("이벤트 클릭")
+            // } // 일정 클릭 이벤트
+
+            events={schedule_list}
+            // eventClick={() => handleDeleteClick(schedule_list)} // 일정 클릭 이벤트
+            eventClick={handleDeleteClick} // 일정 클릭 이벤트
           //   events={[
           //   { title: "event1", date: "2022-03-12" },
           //   { title: "event2", date: "2022-03-14" },
           // ]}
-        />
-        <br></br>
-        <Button
-          type="button"
-          className="btn btn-primary"
-          data-toggle="modal"
-          data-target="#exampleModalScrollable"
-          onClick={() => setModalOpen(true)}
-        >
-          + 일정 등록
-        </Button>
-        <TodoModal show={modalOpen} onHide={() => setModalOpen(false)} />
-      </Container>
-    </div>
-  );
+          />
+          <br></br>
+          {userPers == "1" ? (
+            <></>
+          ) : (
+
+
+
+
+
+            <Button
+              type="button"
+              className="btn btn-primary"
+              data-toggle="modal"
+              data-target="#exampleModalScrollable"
+              onClick={() => setModalOpen(true)}
+            >
+              + 일정 등록
+            </Button>
+          )}
+          <TodoModal show={modalOpen} onHide={() => setModalOpen(false)} />
+        </Container>
+      </div>
+    );
+  }
 };
 
 const Container = styled.div`

@@ -1,43 +1,39 @@
-import React, { Component, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import axios from 'axios';
-import BoardService from '../../service/BoardService';
-import './board.css';
-
-
+import React, { Component, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { withRouter } from "react-router";
+import axios from "axios";
+import BoardService from "../../service/BoardService";
+import "./board.css";
 
 function ListBoard() {
-
+  const userPers = localStorage.getItem("userPers");
   // const pageNum = 1;
   // const {paging, setPaging} = {};
   const [boards, setBoards] = useState([]);
 
   // this.createBoard = this.createBoard.bind(this); // createBoard함수 바인딩
 
-
-  // 글목록 
+  // 글목록
   useEffect(() => {
     BoardService.getBoards().then((res) => {
-      console.log('1', boards)
+      console.log("1", boards);
       // pageNum(res.data.pagingData.currentPageNum),
       // setPaging(res.data.pagingData),
       setBoards(res.data);
       console.log(res.data);
+    });
+  }, []);
 
-    })
-  }, [])
-
-  // 글쓰기 버튼 클릭 
+  // 글쓰기 버튼 클릭
   const createBoard = () => {
-    window.location.href = "/create-board/create"
-  }
+    window.location.href = "/create-board/create";
+  };
 
-  // 글 선택 -> 상세보기 
+  // 글 선택 -> 상세보기
   const readBoard = (id) => {
-    console.log('this is:', id);
+    console.log("this is:", id);
     window.location.href = `/read-board/${id}`;
-  }
+  };
 
   // const listBoard = (pageNum) => {
   //   console.log('listboard pageNum:', pageNum);
@@ -73,12 +69,13 @@ function ListBoard() {
   //   }
   // }
 
+  if (userPers == "0") {
+    return <div>접근 권한이 없습니다. 관계자에게 문의해주세요.</div>;
+  } else {
+    return (
+      <div>
+        <h2 className="text-center">자료실</h2>
 
-  return (
-    <div>
-      <h2 className="text-center">자료실</h2>
-
-      
         <br></br>
         <table class="table table-hover">
           {/* <table className="table table-striped table-bordered"> */}
@@ -91,51 +88,60 @@ function ListBoard() {
               <th>작성자 </th>
               <th>작성일 </th>
               <th>조회수</th>
-
             </tr>
           </thead>
           <tbody class="ListBoard-tbody">
-            {
-              boards.map(
-
-                board =>
-                  <tr key={board.id}>
-                    <td> {board.id} </td>
-                    <td> {board.category} </td>
-                    <td> <a onClick={() => readBoard(board.id)}>{board.title} </a></td>
-                    <td> {board.userId} </td>
-                    <td> {board.regDate} </td>
-                    <td> {board.counts} </td>
-                  </tr>
-              )
-            }
+            {boards.map((board) => (
+              <tr key={board.id}>
+                <td> {board.id} </td>
+                <td> {board.category} </td>
+                <td>
+                  {" "}
+                  <a onClick={() => readBoard(board.id)}>{board.title} </a>
+                </td>
+                <td> {board.userId} </td>
+                <td> {board.regDate} </td>
+                <td> {board.counts} </td>
+              </tr>
+            ))}
           </tbody>
         </table>
-        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button type="button" class="btn btn-primary btn" onClick={createBoard}> ✏️ 글쓰기</button>
-        </div>
+        {userPers == "1" ? (
+          <></>
+        ) : (
+          <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button
+              type="button"
+              class="btn btn-primary btn"
+              onClick={createBoard}
+            >
+              {" "}
+              ✏️ 글쓰기
+            </button>
+          </div>
+        )}
+
         <div class="center">
           <div class="pagination">
             <a href="#">&laquo;</a>
-            <a href="#" class="active">1</a>
+            <a href="#" class="active">
+              1
+            </a>
             <a href="#">2</a>
             <a href="#">3</a>
             <a href="#">4</a>
             {/* <a href="#">5</a>
             <a href="#">6</a> */}
             <a href="#">&raquo;</a>
-          </div>  
+          </div>
         </div>
-        
       </div>
-    
-  );
+    );
+  }
 }
 
-
-
-
-{/* function ListBoard() {
+{
+  /* function ListBoard() {
   const [boards, setBoards] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -173,8 +179,7 @@ function ListBoard() {
       ))}
     </ul>
   );
-} */}
-
-
+} */
+}
 
 export default ListBoard;

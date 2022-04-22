@@ -201,7 +201,7 @@ function ManagerPage() {
     } else {
         return (
             <div>
-                권 한 안 됨!!!!!
+                접근 권한이 없습니다.
             </div>
         )
     }
