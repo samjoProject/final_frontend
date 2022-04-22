@@ -22,8 +22,7 @@ jobs:
           node-version: 16.14.2
       - name: Install dependencies
         run: npm install --force
-      - name: Generate build
-        run: npm run build
+      
       # Share artifact inside workflow
       # - name: Share artifact inside workflow
       #   uses: actions/upload-artifact@v1
@@ -31,7 +30,11 @@ jobs:
       #     name: react-github-actions-build
       #     path: build
 
-      - name: deploy
+deploy:
+    needs: [build]
+    steps: 
+      - name: Generate build
+        run: npm run build
         env: 
           AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}' 
           AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
